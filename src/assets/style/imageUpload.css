@@ -1,0 +1,41 @@
+.custom-dropzone {
+  border: 2px dashed #c9c9c9;
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border 0.3s ease-in-out;
+}
+
+.custom-input-label {
+  color: #333333;
+  font-size: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.custom-input-label-button {
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 15px;
+  width: "119px";
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #22407b;
+}
+
+.custom-preview {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 20%;
+}
