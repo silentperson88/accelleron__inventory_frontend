@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // react-router-dom components
@@ -82,6 +67,7 @@ function Basic() {
       const body = { email, password, isMobile: false };
 
       const res = await dispatch(loginThunk(body));
+      console.log(res);
       setLoading(false);
       if (res.payload.status !== 200) {
         setCredentialError(res.payload.data.message);
@@ -89,12 +75,12 @@ function Basic() {
         setCredentialError(res.data);
       }
 
-      if (res.payload.status) {
+      if (res.payload.status === 200) {
         if (email !== "") {
-          Sessions.setUserToken(res.payload.data.payload.token);
+          Sessions.setUserToken(res.payload.data.data.token);
           Sessions.setUserEmail(email);
         }
-        const deocdedToken = jwtDecode(res.payload.data.payload.token);
+        const deocdedToken = jwtDecode(res.payload.data.data.token);
         navigate(
           deocdedToken.role === defaultData.SUPER_ADMIN_ROLE ? "admin/home" : "client/setting"
         );

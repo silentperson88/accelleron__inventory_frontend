@@ -3,37 +3,38 @@ import Sessions from "utils/Sessions";
 import ApiService from "redux/ApiService/ApiService";
 
 export const loginThunk = createAsyncThunk("login/api", async (body) => {
-  const res = await ApiService.post("auths/login", {
+  const res = await ApiService.post("admins/login", {
     ...body,
   })
-    .then((r) => r.data)
+    .then((r) => r)
     .catch((err) => err.response);
+  console.log(res);
   return res;
 });
 
 export const logoutThunk = createAsyncThunk("logout/api", async () => {
-  const res = await ApiService.get("auths/logout", {
+  const res = await ApiService.get("admins/logout", {
     headers: { Authorization: `Bearer ${Sessions.userToken}` },
   });
   return res.data;
 });
 
 export const ForgetPasswordThunk = createAsyncThunk("forgetpassword/api", async (body) => {
-  const res = await ApiService.post(`auths/forget-password`, { ...body })
+  const res = await ApiService.post(`admins/forget-password`, { ...body })
     .then((r) => r)
     .catch((err) => err.response);
   return res;
 });
 
 export const ResetPasswordThunk = createAsyncThunk("forgetpassword/api", async (data) => {
-  const res = await ApiService.patch(`auths/reset-password/${data.id}`, { ...data.body })
+  const res = await ApiService.patch(`admins/reset-password/${data.id}`, { ...data.body })
     .then((r) => r)
     .catch((err) => err.response);
   return res;
 });
 
 export const checkResetTokenThunk = createAsyncThunk("check-reset-token/api", async (token) => {
-  const res = await ApiService.get(`auths/reset-password/${token}`)
+  const res = await ApiService.get(`admins/reset-password/${token}`)
     .then((r) => r)
     .catch((err) => err.response);
   return res;
