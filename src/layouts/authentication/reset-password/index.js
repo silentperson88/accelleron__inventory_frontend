@@ -11,7 +11,6 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bgLogin.jpg";
-import logo from "assets/images/loginLogo.png";
 import { InputAdornment, IconButton, CircularProgress, InputLabel } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -116,7 +115,23 @@ function ResetPassword() {
           }}
         >
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
+            {/* <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" /> */}
+            <MDBox
+              sx={{
+                marginTop: pxToRem(42),
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "start",
+                alignItems: "start",
+              }}
+            >
+              <MDTypography variant="h6" fontWeight="bold">
+                Funding India
+              </MDTypography>
+              <MDTypography variant="caption" fontWeight="bold" sx={{ fontSize: pxToRem(8) }}>
+                Powered by FinVibes
+              </MDTypography>
+            </MDBox>
           </MDBox>
           {!success ? (
             <MDBox>

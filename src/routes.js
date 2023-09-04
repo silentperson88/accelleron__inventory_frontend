@@ -42,7 +42,7 @@ import Usermanagement from "layouts/wfmwizard/System/userManagement";
 import Medicalmanagement from "layouts/wfmwizard/System/medicalManagement";
 import Rolemanagement from "layouts/wfmwizard/System/RoleManagement";
 import RoleAggrement from "layouts/wfmwizard/System/RoleAgreement";
-import Feedback from "layouts/feedback/Feedback";
+import MobileUsers from "layouts/mobileUsers";
 import ReportDetailsComponent from "layouts/report/reportDetails";
 import ResourceManagement from "layouts/resourceManagemnet";
 import Resources from "layouts/resources";
@@ -191,14 +191,14 @@ const adminRoutes = [
 
   {
     type: "collapse",
-    name: "Feedback",
-    key: "client/feedback",
+    name: "Mobile Users",
+    key: "client/MobileUsers",
     parent: "",
     license: [],
     permissions: [],
-    icon: <Icon fontSize="small">feedback</Icon>,
-    route: "/client/feedback/:id",
-    component: <Feedback />,
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/mobileusers",
+    component: <MobileUsers />,
   },
 
   {

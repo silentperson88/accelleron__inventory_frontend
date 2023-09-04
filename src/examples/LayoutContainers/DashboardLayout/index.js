@@ -15,30 +15,16 @@ import { Alert, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import MDTypography from "components/MDTypography";
 import { closeSnackBar } from "redux/Slice/Notification";
-import configThunk from "redux/Thunks/Config";
-import Session from "utils/Sessions";
-import jwtDecode from "jwt-decode";
-import { defaultData } from "utils/Constants";
 
 function DashboardLayout({ xPadding, children }) {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav } = controller;
   const { pathname } = useLocation();
   const Notification = useSelector((state) => state.Notification);
-  const { config } = useSelector((state) => state.config);
   const dispatchAction = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      setLayout(dispatch, "dashboard");
-      const token = jwtDecode(Session.userToken);
-      if (
-        config?.length === 0 &&
-        (token.role !== defaultData.SUPER_ADMIN_ROLE ||
-          (token.role === defaultData.SUPER_ADMIN_ROLE && Session.isSuperAdminViewingAdminPanel))
-      )
-        await dispatchAction(configThunk());
-    })();
+    setLayout(dispatch, "dashboard");
   }, [pathname]);
 
   const handleSnackbarClose = () => {

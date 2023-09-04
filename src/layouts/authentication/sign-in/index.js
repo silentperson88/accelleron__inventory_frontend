@@ -17,7 +17,7 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bgLogin.jpg";
-import logo from "assets/images/loginLogo.png";
+// import logo from "assets/images/loginLogo.png";
 import { useDispatch } from "react-redux";
 import { InputAdornment, IconButton, InputLabel, FormControlLabel, Checkbox } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -123,7 +123,23 @@ function Basic() {
           }}
         >
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
+            {/* <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" /> */}
+            <MDBox
+              sx={{
+                marginTop: pxToRem(42),
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "start",
+                alignItems: "start",
+              }}
+            >
+              <MDTypography variant="h6" fontWeight="bold">
+                Funding India
+              </MDTypography>
+              <MDTypography variant="caption" fontWeight="bold" sx={{ fontSize: pxToRem(8) }}>
+                Powered by FinVibes
+              </MDTypography>
+            </MDBox>
           </MDBox>
           <MDTypography textAlign="center" color="error" mt={1}>
             {credentialError !== "" ? credentialError : null}

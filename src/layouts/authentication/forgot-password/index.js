@@ -21,7 +21,6 @@ import constant from "utils/Constants";
 import { InputAdornment, InputLabel } from "@mui/material";
 import { Link } from "react-router-dom";
 import pxToRem from "assets/theme/functions/pxToRem";
-import logo from "assets/images/loginLogo.png";
 // Validations Rules
 import Validations from "utils/Validations/index";
 import MDInput from "components/MDInput";
@@ -79,7 +78,23 @@ function ForgotPassword() {
       >
         <Card sx={{ width: pxToRem(450), backgroundColor: "#eceff7" }}>
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
+            {/* <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" /> */}
+            <MDBox
+              sx={{
+                marginTop: pxToRem(42),
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "start",
+                alignItems: "start",
+              }}
+            >
+              <MDTypography variant="h6" fontWeight="bold">
+                Funding India
+              </MDTypography>
+              <MDTypography variant="caption" fontWeight="bold" sx={{ fontSize: pxToRem(8) }}>
+                Powered by FinVibes
+              </MDTypography>
+            </MDBox>
           </MDBox>
           {!status ? (
             <MDBox>

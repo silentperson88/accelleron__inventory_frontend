@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 // react-router components
-import { Link } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -25,7 +24,6 @@ import {
   navbar,
   navbarContainer,
   navbarRow,
-  navbarIconButton,
   navbarMobileMenu,
 } from "examples/Navbars/DashboardNavbar/styles";
 
@@ -139,11 +137,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
                       {miniSidenav ? "menu_open" : "menu"}
                     </Icon>
                   </IconButton>
-                  <Link to="/client/profile">
+                  {/* <Link to="/client/profile">
                     <IconButton sx={navbarIconButton} size="small" disableRipple>
                       <Icon sx={iconsStyle}>account_circle</Icon>
                     </IconButton>
-                  </Link>
+                  </Link> */}
                 </>
               ) : null}
               {renderMenu()}

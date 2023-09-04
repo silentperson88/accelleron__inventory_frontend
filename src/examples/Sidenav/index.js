@@ -32,14 +32,13 @@ import {
   setTransparentSidenav,
   setWhiteSidenav,
 } from "context";
-import logo1 from "assets/images/Reynard.svg";
-import logo2 from "assets/images/Reynard2.svg";
 import IconButton from "@mui/material/IconButton";
 import Confirmation from "examples/modal/Confirmation/Confirmation";
 import { useDispatch, useSelector } from "react-redux";
 import { accountLicenseThunk } from "redux/Thunks/License";
 import Constants, { defaultData } from "utils/Constants";
 import { resetStateThunk } from "redux/Thunks/Authentication";
+import pxToRem from "assets/theme/functions/pxToRem";
 
 function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
@@ -290,7 +289,33 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
       <MDBox pt={0.625} pb={0} px={2} textAlign="center">
         <MDBox component={NavLink} to="/" display="flex" alignItems="center">
           {brand && (
-            <MDBox component="img" src={miniSidenav ? logo2 : logo1} alt="Brand" marginTop="12px" />
+            // <MDBox
+            //   // component="img"
+            //   src="Funding India
+            // Powered by FinVibes"
+            //   alt="Brand"
+            //   marginTop="12px"
+            // />
+            <MDBox
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "start",
+                alignItems: "start",
+              }}
+            >
+              <MDTypography variant="h6" fontWeight="bold" color={textColor}>
+                Funding India
+              </MDTypography>
+              <MDTypography
+                variant="caption"
+                fontWeight="bold"
+                color={textColor}
+                sx={{ fontSize: pxToRem(8) }}
+              >
+                Powered by FinVibes
+              </MDTypography>
+            </MDBox>
           )}
         </MDBox>
       </MDBox>
