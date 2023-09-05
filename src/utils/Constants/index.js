@@ -184,6 +184,9 @@ const TextMessage = {
   EQUIPMENT_UPDATE_SUCCESS: "Equipment updated successfully.",
   EQUIPMENT_DELETE_SUCCESS: "Equipment deleted successfully.",
   EQUIPMENT_DELETE_ERROR: "Equipment cannot be deleted.",
+
+  // Mobile Users
+  MOBILE_USERS_ERROR: "Error occured while fetching mobile users.",
 };
 
 // Page titles

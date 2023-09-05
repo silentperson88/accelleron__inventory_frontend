@@ -30,7 +30,7 @@ function feedbacks() {
       } else {
         dispatch(
           openSnackbar({
-            message: Constants.FEEDBACK_LIST_ERROR,
+            message: Constants.MOBILE_USERS_ERROR,
             notificationType: Constants.NOTIFICATION_ERROR,
           })
         );

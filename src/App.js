@@ -164,13 +164,13 @@ export default function App() {
               to={
                 (role !== defaultData.SUPER_ADMIN_ROLE &&
                   role !== defaultData.UNAUTHORIZED_ROLE &&
-                  "client/setting") ||
+                  "client/mobileusers") ||
                 (role === defaultData.SUPER_ADMIN_ROLE &&
                   !isSuperAdminViewingAdminPanel &&
                   "admin/home") ||
                 (role === defaultData.SUPER_ADMIN_ROLE &&
                   isSuperAdminViewingAdminPanel &&
-                  "client/setting") ||
+                  "client/mobileusers") ||
                 (role === defaultData.UNAUTHORIZED_ROLE && "/authentication/sign-in")
               }
             />

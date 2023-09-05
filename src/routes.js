@@ -374,7 +374,7 @@ const adminRoutes = [
     key: "client/setting",
     parent: "",
     license: [],
-    permissions: [],
+    permissions: ["setting"],
     icon: <Icon fontSize="small">settings</Icon>,
     route: "/client/setting",
     component: <WFMWizard />,
