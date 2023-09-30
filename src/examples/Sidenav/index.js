@@ -25,6 +25,9 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 
+// Logo
+import logo from "assets/images/brand.png";
+
 // Material Dashboard 2 React context
 import {
   useMaterialUIController,
@@ -289,33 +292,13 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
       <MDBox pt={0.625} pb={0} px={2} textAlign="center">
         <MDBox component={NavLink} to="/" display="flex" alignItems="center">
           {brand && (
-            // <MDBox
-            //   // component="img"
-            //   src="Funding India
-            // Powered by FinVibes"
-            //   alt="Brand"
-            //   marginTop="12px"
-            // />
             <MDBox
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "start",
-                alignItems: "start",
-              }}
-            >
-              <MDTypography variant="h6" fontWeight="bold" color={textColor}>
-                Funding India
-              </MDTypography>
-              <MDTypography
-                variant="caption"
-                fontWeight="bold"
-                color={textColor}
-                sx={{ fontSize: pxToRem(8) }}
-              >
-                Powered by FinVibes
-              </MDTypography>
-            </MDBox>
+              component="img"
+              src={logo}
+              alt="Brand"
+              marginY="5px"
+              sx={{ width: pxToRem(100) }}
+            />
           )}
         </MDBox>
       </MDBox>

@@ -74,7 +74,7 @@ const adminRoutes = [
   {
     type: "collapse",
     name: "Mobile Users",
-    key: "client/MobileUsers",
+    key: "client/mobileusers",
     parent: "",
     license: [],
     permissions: [],

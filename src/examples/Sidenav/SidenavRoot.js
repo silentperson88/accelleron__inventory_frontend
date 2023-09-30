@@ -1,6 +1,7 @@
 // @mui material components
 import Drawer from "@mui/material/Drawer";
 import { styled } from "@mui/material/styles";
+import { Colors } from "utils/Constants";
 
 export default styled(Drawer)(({ theme, ownerState }) => {
   const { boxShadows, transitions, breakpoints, functions } = theme;
@@ -14,7 +15,7 @@ export default styled(Drawer)(({ theme, ownerState }) => {
 
   // styles for the sidenav when miniSidenav={false}
   const drawerOpenStyles = () => ({
-    background: "#191A51",
+    background: Colors.PRIMARY,
     transform: "translateX(0)",
     transition: transitions.create("transform", {
       easing: transitions.easing.sharp,

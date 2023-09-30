@@ -17,13 +17,16 @@ import ForgetPassword from "redux/Thunks/Authentication";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 // Contants
-import constant from "utils/Constants";
+import constant, { Colors } from "utils/Constants";
 import { InputAdornment, InputLabel } from "@mui/material";
 import { Link } from "react-router-dom";
 import pxToRem from "assets/theme/functions/pxToRem";
 // Validations Rules
 import Validations from "utils/Validations/index";
 import MDInput from "components/MDInput";
+
+// Logo
+import logo from "assets/images/brand.png";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -78,23 +81,7 @@ function ForgotPassword() {
       >
         <Card sx={{ width: pxToRem(450), backgroundColor: "#eceff7" }}>
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            {/* <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" /> */}
-            <MDBox
-              sx={{
-                marginTop: pxToRem(42),
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "start",
-                alignItems: "start",
-              }}
-            >
-              <MDTypography variant="h6" fontWeight="bold">
-                Funding India
-              </MDTypography>
-              <MDTypography variant="caption" fontWeight="bold" sx={{ fontSize: pxToRem(8) }}>
-                Powered by FinVibes
-              </MDTypography>
-            </MDBox>
+            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
           </MDBox>
           {!status ? (
             <MDBox>
@@ -162,7 +149,7 @@ function ForgotPassword() {
                       variant="gradient"
                       sx={{
                         textTransform: "capitalize",
-                        backgroundColor: "#191A51",
+                        backgroundColor: Colors.PRIMARY,
                         color: "#fff",
                         padding: 2,
                         fontSize: pxToRem(16),
@@ -185,7 +172,7 @@ function ForgotPassword() {
                       sx={{ color: "#8C8C99", fontSize: pxToRem(12), fontWeight: 400 }}
                       fontWeight="light"
                     >
-                      ©2023 Reynard. All rights reserved.
+                      ©2023 Finvibes. All rights reserved.
                     </MDTypography>
                   </MDBox>
                 </MDBox>

@@ -32,7 +32,10 @@ import { loginThunk } from "redux/Thunks/Authentication";
 // Sessions
 import Sessions from "utils/Sessions";
 import jwtDecode from "jwt-decode";
-import { defaultData } from "utils/Constants";
+import { defaultData, Colors } from "utils/Constants";
+
+// Logo
+import logo from "assets/images/brand.png";
 
 function Basic() {
   const dispatch = useDispatch();
@@ -123,23 +126,7 @@ function Basic() {
           }}
         >
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            {/* <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" /> */}
-            <MDBox
-              sx={{
-                marginTop: pxToRem(42),
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "start",
-                alignItems: "start",
-              }}
-            >
-              <MDTypography variant="h6" fontWeight="bold">
-                Funding India
-              </MDTypography>
-              <MDTypography variant="caption" fontWeight="bold" sx={{ fontSize: pxToRem(8) }}>
-                Powered by FinVibes
-              </MDTypography>
-            </MDBox>
+            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
           </MDBox>
           <MDTypography textAlign="center" color="error" mt={1}>
             {credentialError !== "" ? credentialError : null}
@@ -237,7 +224,7 @@ function Basic() {
                     variant="gradient"
                     sx={{
                       textTransform: "capitalize",
-                      backgroundColor: "#191A51",
+                      backgroundColor: Colors.PRIMARY,
                       color: "#fff",
                       padding: 2,
                       fontSize: pxToRem(16),
@@ -268,7 +255,7 @@ function Basic() {
                     sx={{ color: "#8C8C99", fontSize: pxToRem(12), fontWeight: 400 }}
                     fontWeight="light"
                   >
-                    ©2023 Reynard. All rights reserved.
+                    ©2023 Finvibes. All rights reserved.
                   </MDTypography>
                 </MDBox>
               </MDBox>

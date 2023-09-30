@@ -4,7 +4,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import React, { useEffect, useState } from "react";
 import pxToRem from "assets/theme/functions/pxToRem";
-import { Icons, ButtonTitles } from "utils/Constants";
+import { Icons, ButtonTitles, Colors } from "utils/Constants";
 
 function confirmation({
   open,
@@ -98,7 +98,7 @@ function confirmation({
               style={{ boxShadow: "none", textTransform: "none" }}
               disableRipple
               sx={{
-                backgroundColor: "#191a51",
+                backgroundColor: Colors.PRIMARY,
                 borderRadius: pxToRem(8),
                 height: pxToRem(40),
                 width: loading ? "100px" : "57px",

@@ -18,7 +18,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import pxToRem from "assets/theme/functions/pxToRem";
 import { useEffect, useState } from "react";
 
-import Constants from "utils/Constants";
+// Logo
+import logo from "assets/images/brand.png";
+
+import Constants, { Colors } from "utils/Constants";
 import { useDispatch } from "react-redux";
 import { ResetPasswordThunk, checkResetTokenThunk } from "redux/Thunks/Authentication";
 import { Link, useParams } from "react-router-dom";
@@ -115,23 +118,7 @@ function ResetPassword() {
           }}
         >
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            {/* <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" /> */}
-            <MDBox
-              sx={{
-                marginTop: pxToRem(42),
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "start",
-                alignItems: "start",
-              }}
-            >
-              <MDTypography variant="h6" fontWeight="bold">
-                Funding India
-              </MDTypography>
-              <MDTypography variant="caption" fontWeight="bold" sx={{ fontSize: pxToRem(8) }}>
-                Powered by FinVibes
-              </MDTypography>
-            </MDBox>
+            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
           </MDBox>
           {!success ? (
             <MDBox>
@@ -256,7 +243,7 @@ function ResetPassword() {
                           variant="gradient"
                           sx={{
                             textTransform: "capitalize",
-                            backgroundColor: "#191A51",
+                            backgroundColor: Colors.PRIMARY,
                             color: "#fff",
                             padding: 2,
                             fontSize: pxToRem(16),
@@ -274,7 +261,7 @@ function ResetPassword() {
                           sx={{ color: "text", fontSize: pxToRem(12), fontWeight: 400 }}
                           fontWeight="light"
                         >
-                          ©2023 Reynard. All rights reserved.
+                          ©2023 Finvibes. All rights reserved.
                         </MDTypography>
                       </MDBox>
                     </MDBox>

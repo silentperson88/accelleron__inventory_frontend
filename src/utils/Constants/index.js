@@ -309,7 +309,7 @@ export const CardTitles = {
 
 // color constants
 export const Colors = {
-  PRIMARY: "#191A51",
+  PRIMARY: "#193eb7",
   PRIMARY1: "191A51",
   SECONDARY: "#FFC107",
   ERROR: "#9D0202",

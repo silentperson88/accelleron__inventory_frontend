@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Sessions from "utils/Sessions";
 import { resetStateThunk } from "redux/Thunks/Authentication";
 import { useDispatch } from "react-redux";
+import { Colors } from "utils/Constants";
 
 function index({ openLogout, handleCloseLogout }) {
   const [loading, setLoading] = useState(false);
@@ -92,7 +93,7 @@ function index({ openLogout, handleCloseLogout }) {
               style={{ boxShadow: "none", textTransform: "none" }}
               disableRipple
               sx={{
-                backgroundColor: "#191a51",
+                backgroundColor: Colors.PRIMARY,
                 borderRadius: pxToRem(8),
                 height: pxToRem(40),
                 width: loading ? "100px" : "57px",
