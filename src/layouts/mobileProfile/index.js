@@ -19,11 +19,17 @@ function ProfileForm() {
       <MDBox display="flex" justifyContent="space-between">
         <PageTitle title={PageTitles.MOBILE_USERS} />
       </MDBox>
-      <MDBox mt={5} display="flex" justifiContent="space-between">
-        <MDBox px={2}>
+      <MDBox
+        mt={5}
+        display="flex"
+        justifiContent="space-between"
+        flexDirection={{ xs: "column", md: "row" }}
+        // flexDirection="column"
+      >
+        <MDBox mb={2} px={2}>
           <MasterCard type="Credit Card Loan" number={4562112245947852} holder="" expires="" />
         </MDBox>
-        <MDBox px={2}>
+        <MDBox mb={2} px={2}>
           <MasterCard
             type="Personal Loan"
             color="secondary"
