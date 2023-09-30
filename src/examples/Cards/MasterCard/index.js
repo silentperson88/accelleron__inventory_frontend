@@ -88,7 +88,7 @@ function MasterCard({ type, color, number, holder, expires }) {
           variant="h5"
           color="white"
           fontWeight="medium"
-          sx={{ mt: 3, mb: 5, pb: 1, ml: 15 }}
+          sx={{ mt: 3, mb: 5, pb: 1, w: 100, textAlign: "center" }}
         >
           {type}
           {/* {num1}&nbsp;&nbsp;&nbsp;{num2}&nbsp;&nbsp;&nbsp;{num3}&nbsp;&nbsp;&nbsp;{num4} */}

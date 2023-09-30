@@ -256,9 +256,6 @@ function index() {
     }
   };
 
-  useEffect(() => {
-    console.log(profileConfig, profileConfig.length);
-  }, [profileConfig]);
   return (
     <DashboardLayout xPadding={0}>
       <MDBox px={3}>
@@ -289,7 +286,7 @@ function index() {
                   width: "100%",
                   color: "#667085",
                   fontFamily: "Inter",
-                  fontSize: 24,
+                  fontSize: 20,
                   fontStyle: "normal",
                   fontWeight: 600,
                   lineHeight: pxToRem(16),
