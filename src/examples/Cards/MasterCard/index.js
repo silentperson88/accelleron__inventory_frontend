@@ -27,8 +27,9 @@ import MDTypography from "components/MDTypography";
 // Images
 import pattern from "assets/images/illustrations/pattern-tree.svg";
 import masterCardLogo from "assets/images/logos/mastercard.png";
+import { useNavigate } from "react-router-dom";
 
-function MasterCard({ color, number, holder, expires }) {
+function MasterCard({ type, color, number, holder, expires }) {
   const numbers = [...`${number}`];
 
   if (numbers.length < 16 || numbers.length > 16) {
@@ -36,11 +37,12 @@ function MasterCard({ color, number, holder, expires }) {
       "Invalid value for the prop number, the value for the number prop shouldn't be greater than or less than 16 digits"
     );
   }
+  const navigate = useNavigate();
 
-  const num1 = numbers.slice(0, 4).join("");
-  const num2 = numbers.slice(4, 8).join("");
-  const num3 = numbers.slice(8, 12).join("");
-  const num4 = numbers.slice(12, 16).join("");
+  // const num1 = numbers.slice(0, 4).join("");
+  // const num2 = numbers.slice(4, 8).join("");
+  // const num3 = numbers.slice(8, 12).join("");
+  // const num4 = numbers.slice(12, 16).join("");
 
   return (
     <Card
@@ -64,18 +66,39 @@ function MasterCard({ color, number, holder, expires }) {
           backgroundSize: "cover",
         }}
       />
-      <MDBox position="relative" zIndex={2} p={2}>
+      <MDBox
+        position="relative"
+        zIndex={2}
+        p={2}
+        sx={{
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          if (type === "Personal Loan") navigate("/client/personal-loan-form");
+          else navigate("/client/credit-card-loan-form");
+        }}
+      >
         <MDBox color="white" p={1} lineHeight={0} display="inline-block">
           <Icon fontSize="default">wifi</Icon>
         </MDBox>
-        <MDTypography variant="h5" color="white" fontWeight="medium" sx={{ mt: 3, mb: 5, pb: 1 }}>
-          {num1}&nbsp;&nbsp;&nbsp;{num2}&nbsp;&nbsp;&nbsp;{num3}&nbsp;&nbsp;&nbsp;{num4}
+        <MDTypography variant="h6" color="white" fontWeight="medium" textTransform="capitalize">
+          {holder}
         </MDTypography>
+        <MDTypography
+          variant="h5"
+          color="white"
+          fontWeight="medium"
+          sx={{ mt: 3, mb: 5, pb: 1, ml: 15 }}
+        >
+          {type}
+          {/* {num1}&nbsp;&nbsp;&nbsp;{num2}&nbsp;&nbsp;&nbsp;{num3}&nbsp;&nbsp;&nbsp;{num4} */}
+        </MDTypography>
+
         <MDBox display="flex" justifyContent="space-between" alignItems="center">
           <MDBox display="flex" alignItems="center">
             <MDBox mr={3} lineHeight={1}>
               <MDTypography variant="button" color="white" fontWeight="regular" opacity={0.8}>
-                Card Holder
+                {holder ? "Card Holder" : ""}
               </MDTypography>
               <MDTypography
                 variant="h6"
@@ -88,7 +111,7 @@ function MasterCard({ color, number, holder, expires }) {
             </MDBox>
             <MDBox lineHeight={1}>
               <MDTypography variant="button" color="white" fontWeight="regular" opacity={0.8}>
-                Expires
+                {expires ? "Expires" : ""}
               </MDTypography>
               <MDTypography variant="h6" color="white" fontWeight="medium">
                 {expires}
@@ -107,6 +130,7 @@ function MasterCard({ color, number, holder, expires }) {
 // Setting default values for the props of MasterCard
 MasterCard.defaultProps = {
   color: "dark",
+  type: "",
 };
 
 // Typechecking props for the MasterCard
@@ -115,6 +139,7 @@ MasterCard.propTypes = {
   number: PropTypes.number.isRequired,
   holder: PropTypes.string.isRequired,
   expires: PropTypes.string.isRequired,
+  type: PropTypes.string,
 };
 
 export default MasterCard;

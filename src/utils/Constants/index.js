@@ -192,6 +192,8 @@ const TextMessage = {
 // Page titles
 export const PageTitles = {
   MOBILE_USERS: "Mobile Users",
+  PERSONAL_LOAN: "Personal Loan",
+  CREDIT_CARD_LOAN: "Credit Card Loan",
 };
 
 // Button titles
@@ -493,11 +495,7 @@ export const FormFields = {
 
 //  feature tags
 export const FeatureTags = {
-  SHIFT_DETAILS: "shiftDetails",
-  SETUP_REPORT: "setupReport",
-  ROLE_MANAGEMENT: "roleManagement",
-  SETUP_EQUIPMENT: "setupEquipment",
-  WAREHOUSE: "warehouse",
+  LOAN_FORM: "Loan Form",
 };
 
 export const defaultData = {
