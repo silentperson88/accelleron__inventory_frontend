@@ -16,13 +16,7 @@ import FTextField from "components/Form/FTextField";
 import ConfigDropdown from "components/Dropdown/ConfigDropdown";
 
 // Utils
-import Constants, {
-  PageTitles,
-  FeatureTags,
-  ButtonTitles,
-  Icons,
-  defaultData,
-} from "utils/Constants";
+import Constants, { FeatureTags, ButtonTitles, Icons, defaultData } from "utils/Constants";
 import Validator from "utils/Validations";
 
 // Material Dashboard 2 React helper functions
@@ -260,13 +254,7 @@ function index() {
     <DashboardLayout xPadding={0}>
       <MDBox px={3}>
         <DashboardNavbar />
-        <PageTitle
-          title={
-            formType === "personal-loan-form"
-              ? PageTitles.PERSONAL_LOAN
-              : PageTitles.CREDIT_CARD_LOAN
-          }
-        />
+        <PageTitle title={formType.replaceAll("-", " ")} />
         <Divider sx={{ marginTop: 2 }} />
       </MDBox>
       <Feature name={FeatureTags.LOAN_FORM}>
@@ -311,7 +299,7 @@ function index() {
                         case "number":
                         case "email":
                           return (
-                            <Grid mb={1} item lg={12} sm={12}>
+                            <Grid mb={1} item xs={12}>
                               <FTextField
                                 label={item?.IsRequired ? `${item.title}*` : item.title}
                                 placeholder={item.hint}
@@ -328,7 +316,7 @@ function index() {
                           );
                         case "date":
                           return (
-                            <Grid mb={1} item lg={12} sm={12}>
+                            <Grid item xs={12}>
                               <ReactDatePicker
                                 selected=""
                                 onChange={(date) =>
@@ -355,7 +343,7 @@ function index() {
 
                         case "dropdown":
                           return (
-                            <Grid mb={1} item lg={12} sm={12}>
+                            <Grid mb={1} item xs={12}>
                               <ConfigDropdown
                                 label={item?.IsRequired ? `${item.title}*` : item.title}
                                 name={item?.id}

@@ -1,14 +1,13 @@
+import React, { useState } from "react";
 import { FormControl, FormHelperText, IconButton, MenuItem, Select } from "@mui/material";
 import FormControlErrorStyles from "assets/style/Component";
 import pxToRem from "assets/theme/functions/pxToRem";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useState } from "react";
 import Constants from "utils/Constants";
 
 const configDropdown = ({
-  width,
   label,
   id,
   name,
@@ -20,19 +19,17 @@ const configDropdown = ({
   error,
   helperText,
   marginBottom,
-  minWidth = pxToRem(200),
 }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <FormControl
       sx={{
         mr: 2,
         ml: 0,
         mt: pxToRem(8),
-        minWidth: "100%",
-        width,
+        width: "100%", // Set the width of the FormControl to the provided width prop
         marginBottom,
-        maxHeight: 400,
         ...FormControlErrorStyles,
       }}
       error={error}
@@ -64,7 +61,7 @@ const configDropdown = ({
           onOpen={() => setOpen(true)}
           sx={{
             height: 45,
-            minWidth: "100%",
+            minWidth: "100%", // Make sure the Select takes the full width of the FormControl
             "& .MuiInputBase-input": {
               fontSize: pxToRem(16),
               fontWeight: 400,
@@ -88,11 +85,10 @@ const configDropdown = ({
             },
             PaperProps: {
               style: {
-                maxHeight: 200,
+                maxWidth: "100%",
                 opacity: 1,
                 transform: "none",
                 border: "1px solid #D0D5DD",
-                minWidth,
               },
             },
           }}

@@ -192,8 +192,13 @@ const TextMessage = {
 // Page titles
 export const PageTitles = {
   MOBILE_USERS: "Mobile Users",
+  LOAN_DASHBOARD: "Loans",
   PERSONAL_LOAN: "Personal Loan",
   CREDIT_CARD_LOAN: "Credit Card Loan",
+  HOME_LOAN: "Home Loan",
+  BUSINESS_LOAN: "Business Loan",
+  AUTO_LOAN: "Auto Loan",
+  EDUCATION_LOAN: "Education Loan",
 };
 
 // Button titles

@@ -14,13 +14,11 @@ const DateTime = forwardRef(({ value, onClick, item, errors, label, minWidth = "
       flexWrap: "wrap",
       mr: 2,
       ml: 0,
-      mb: 0,
       minWidth: "100%",
     }}
   >
     <MDTypography
       variant="caption"
-      mb={1}
       sx={{ fontSize: pxToRem(14), fontWeight: 500, color: "#344054" }}
     >
       {label}
@@ -37,7 +35,10 @@ const DateTime = forwardRef(({ value, onClick, item, errors, label, minWidth = "
       }}
       placeholder={item?.hint}
       value={value}
-      sx={{ ml: 0, minWidth, mb: 2 }}
+      sx={{
+        ml: 0,
+        minWidth,
+      }}
       onClick={onClick}
       ref={ref}
     />

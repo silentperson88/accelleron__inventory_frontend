@@ -73,10 +73,7 @@ function MasterCard({ type, color, number, holder, expires }) {
         sx={{
           cursor: "pointer",
         }}
-        onClick={() => {
-          if (type === "Personal Loan") navigate("/client/personal-loan-form");
-          else navigate("/client/credit-card-loan-form");
-        }}
+        onClick={() => navigate(`/client/${type.toLowerCase().replaceAll(" ", "-")}`)}
       >
         <MDBox color="white" p={1} lineHeight={0} display="inline-block">
           <Icon fontSize="default">wifi</Icon>
