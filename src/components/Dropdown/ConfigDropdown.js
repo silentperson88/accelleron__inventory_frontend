@@ -86,6 +86,7 @@ const configDropdown = ({
             PaperProps: {
               style: {
                 maxWidth: "100%",
+                maxHeight: 300,
                 opacity: 1,
                 transform: "none",
                 border: "1px solid #D0D5DD",
@@ -94,7 +95,9 @@ const configDropdown = ({
           }}
           onChange={(e) => handleChange(name, e.target.value, id)}
           renderValue={(selected) => {
-            const val = menu.find((opt) => opt?.[Constants.MONGOOSE_ID] === selected);
+            const val = menu.find(
+              (opt) => opt?.[Constants.MONGOOSE_ID] === selected || opt.id === selected
+            );
             return (
               <MDTypography variant="caption" sx={{ textTransform: "capitalize" }}>
                 {val?.title || defaultValue || value || "Select"}
@@ -108,8 +111,8 @@ const configDropdown = ({
           {menu.length > 0 ? (
             menu.map((item) => (
               <MenuItem
-                value={item[Constants.MONGOOSE_ID] || item}
-                id={item[Constants.MONGOOSE_ID] || item}
+                value={item[Constants.MONGOOSE_ID] || item.id || item}
+                id={item[Constants.MONGOOSE_ID] || item.id || item}
                 sx={{
                   textTransform: "capitalize",
                   maxHeight: 400,
@@ -118,7 +121,7 @@ const configDropdown = ({
                   marginTop: "4px",
                   color: "#667085",
                 }}
-                key={item[Constants.MONGOOSE_ID] || item}
+                key={item[Constants.MONGOOSE_ID] || item.id || item}
               >
                 {item.title || item}
               </MenuItem>

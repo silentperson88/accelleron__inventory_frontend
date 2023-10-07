@@ -1,24 +1,8 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -26,10 +10,8 @@ import MDTypography from "components/MDTypography";
 
 // Images
 import pattern from "assets/images/illustrations/pattern-tree.svg";
-import masterCardLogo from "assets/images/logos/mastercard.png";
-import { useNavigate } from "react-router-dom";
 
-function MasterCard({ type, color, number, holder, expires }) {
+function MasterCard({ type, color, number, holder, expires, handleAction }) {
   const numbers = [...`${number}`];
 
   if (numbers.length < 16 || numbers.length > 16) {
@@ -37,7 +19,6 @@ function MasterCard({ type, color, number, holder, expires }) {
       "Invalid value for the prop number, the value for the number prop shouldn't be greater than or less than 16 digits"
     );
   }
-  const navigate = useNavigate();
 
   // const num1 = numbers.slice(0, 4).join("");
   // const num2 = numbers.slice(4, 8).join("");
@@ -73,11 +54,8 @@ function MasterCard({ type, color, number, holder, expires }) {
         sx={{
           cursor: "pointer",
         }}
-        onClick={() => navigate(`/client/${type.toLowerCase().replaceAll(" ", "-")}`)}
+        onClick={() => handleAction(type)}
       >
-        <MDBox color="white" p={1} lineHeight={0} display="inline-block">
-          <Icon fontSize="default">wifi</Icon>
-        </MDBox>
         <MDTypography variant="h6" color="white" fontWeight="medium" textTransform="capitalize">
           {holder}
         </MDTypography>
@@ -85,7 +63,7 @@ function MasterCard({ type, color, number, holder, expires }) {
           variant="h5"
           color="white"
           fontWeight="medium"
-          sx={{ mt: 3, mb: 5, pb: 1, w: 100, textAlign: "center" }}
+          sx={{ mt: 3, mb: 3, pb: 1, w: 100, textAlign: "center" }}
         >
           {type}
           {/* {num1}&nbsp;&nbsp;&nbsp;{num2}&nbsp;&nbsp;&nbsp;{num3}&nbsp;&nbsp;&nbsp;{num4} */}
@@ -115,9 +93,6 @@ function MasterCard({ type, color, number, holder, expires }) {
               </MDTypography>
             </MDBox>
           </MDBox>
-          <MDBox display="flex" justifyContent="flex-end" width="20%">
-            <MDBox component="img" src={masterCardLogo} alt="master card" width="60%" mt={1} />
-          </MDBox>
         </MDBox>
       </MDBox>
     </Card>
@@ -128,6 +103,7 @@ function MasterCard({ type, color, number, holder, expires }) {
 MasterCard.defaultProps = {
   color: "dark",
   type: "",
+  handleAction: () => {},
 };
 
 // Typechecking props for the MasterCard
@@ -137,6 +113,7 @@ MasterCard.propTypes = {
   holder: PropTypes.string.isRequired,
   expires: PropTypes.string.isRequired,
   type: PropTypes.string,
+  handleAction: PropTypes.func,
 };
 
 export default MasterCard;

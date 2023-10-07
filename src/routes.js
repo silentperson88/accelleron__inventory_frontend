@@ -1,8 +1,10 @@
 // Admin layouts
 import SignIn from "layouts/authentication/sign-in";
+import CustomerLogin from "layouts/authentication/sign-in/customerLogin";
 import ResetPassword from "layouts/authentication/reset-password";
 import ForgotPassword from "layouts/authentication/forgot-password";
 import ClientHome from "layouts/mobileProfile";
+import Bill from "layouts/billPayments";
 import LoanForm from "layouts/mobileProfile/LoanForm";
 import MobileUsers from "layouts/mobileUsers";
 
@@ -24,6 +26,16 @@ export const authenticationRoute = [
     icon: <Icon fontSize="small">SignIn</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+  },
+  {
+    type: "page",
+    name: "Sign In",
+    key: "sign-in",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">SignIn</Icon>,
+    route: "/sign-in",
+    component: <CustomerLogin />,
   },
   {
     type: "page",
@@ -58,6 +70,17 @@ const adminRoutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/client/home",
     component: <ClientHome />,
+  },
+  {
+    type: "collapse",
+    name: "Bill",
+    key: "customer/bill",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/customer/bill",
+    component: <Bill />,
   },
   {
     type: "page",

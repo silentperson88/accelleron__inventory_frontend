@@ -187,6 +187,9 @@ const TextMessage = {
 
   // Mobile Users
   MOBILE_USERS_ERROR: "Error occured while fetching mobile users.",
+
+  // Customer Login
+  INVALID_PHONE_NUMBER: "Invalid phone number",
 };
 
 // Page titles
@@ -199,6 +202,14 @@ export const PageTitles = {
   BUSINESS_LOAN: "Business Loan",
   AUTO_LOAN: "Auto Loan",
   EDUCATION_LOAN: "Education Loan",
+
+  // Bill Payment Types
+  ELECTRICITY: "Electricity Bill",
+  WATER: "Water Bill",
+  GAS: "Gas Bill",
+  RECHARGE: "Recharge Bill",
+  FASTAG: "Fastag",
+  MUNCIPAILITY: "Municipality Bill",
 };
 
 // Button titles

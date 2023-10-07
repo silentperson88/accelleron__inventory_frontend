@@ -64,8 +64,10 @@ const basicValidation2 = (value) => {
 };
 
 const phoneValidation = (val) => {
-  const phoneRegex = /^(06[- ]?\d{2}([- ]?\d{2}){3}|(\(0031\) )?6-\d{8}|\+316\d{8})$/;
-  return phoneRegex.test(val);
+  // const phoneRegex = /^(06[- ]?\d{2}([- ]?\d{2}){3}|(\(0031\) )?6-\d{8}|\+316\d{8})$/;
+  // return phoneRegex.test(val);
+  const isValidLength = val.length === 10;
+  return isValidLength ? "" : Constants.INVALID_PHONE_NUMBER;
 };
 const isUrlValid = (val) => {
   const urlRegex = /^(?:\w+:)?\/\/([^\s.]+\.\S{2}|localhost[:?\d]*)\S*$/;
@@ -97,6 +99,17 @@ const imageValidation = (value) => {
   }
   return "";
 };
+
+const otpValidation = (value) => {
+  if (!value) {
+    return Constants.REQUIRED;
+  }
+  if (value.length !== 6) {
+    return Constants.INVALID_OTP;
+  }
+  return "";
+};
+
 const Validator = {
   validate: (fieldType, fieldValue, minVal = null, maxVal = null, isRequired = true) => {
     switch (fieldType) {
@@ -118,6 +131,8 @@ const Validator = {
         return numberValidation(fieldValue);
       case "image":
         return imageValidation(fieldValue);
+      case "otp":
+        return otpValidation(fieldValue);
       default:
         return "";
     }

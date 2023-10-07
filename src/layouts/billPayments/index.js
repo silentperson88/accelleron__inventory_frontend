@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import MDBox from "components/MDBox";
 
 // Custom Components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import PageTitle from "examples/NewDesign/PageTitle";
+import BillForm from "examples/modal/BillForm";
 
 // Constant
 import { PageTitles } from "utils/Constants";
@@ -12,16 +13,19 @@ import { PageTitles } from "utils/Constants";
 // Redux component
 import MasterCard from "examples/Cards/MasterCard";
 import { Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 function ProfileForm() {
-  const navigate = useNavigate();
-  const handleLoanFormRouting = (type) => {
-    navigate(`/client/${type.toLowerCase().replaceAll(" ", "-")}`);
+  const [open, seOpen] = useState(false);
+  const [billTitle, setBillTitle] = useState("");
+
+  const handleBillForm = (type) => {
+    setBillTitle(type);
+    seOpen(true);
   };
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      {open && <BillForm open={open} handleClose={() => seOpen(false)} title={billTitle} />}
       <MDBox display="flex" justifyContent="space-between">
         <PageTitle title={PageTitles.LOAN_DASHBOARD} />
       </MDBox>
@@ -30,61 +34,61 @@ function ProfileForm() {
           <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
               color="secondary"
-              type={PageTitles.CREDIT_CARD_LOAN}
+              type={PageTitles.ELECTRICITY}
               number={4562112245947852}
               holder=""
               expires=""
-              handleAction={handleLoanFormRouting}
+              handleAction={handleBillForm}
             />
           </Grid>
           <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
-              type={PageTitles.PERSONAL_LOAN}
+              type={PageTitles.WATER}
               color="primary"
               number={4562112245947852}
               holder=""
               expires=""
-              handleAction={handleLoanFormRouting}
+              handleAction={handleBillForm}
             />
           </Grid>
           <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
               color="info"
-              type={PageTitles.HOME_LOAN}
+              type={PageTitles.GAS}
               number={4562112245947852}
               holder=""
               expires=""
-              handleAction={handleLoanFormRouting}
+              handleAction={handleBillForm}
             />
           </Grid>
           <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
               color="success"
-              type={PageTitles.BUSINESS_LOAN}
+              type={PageTitles.FASTAG}
               number={4562112245947852}
               holder=""
               expires=""
-              handleAction={handleLoanFormRouting}
+              handleAction={handleBillForm}
             />
           </Grid>
           <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
               color="warning"
-              type={PageTitles.AUTO_LOAN}
+              type={PageTitles.RECHARGE}
               number={4562112245947852}
               holder=""
               expires=""
-              handleAction={handleLoanFormRouting}
+              handleAction={handleBillForm}
             />
           </Grid>
           <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
               color="error"
-              type={PageTitles.EDUCATION_LOAN}
+              type={PageTitles.MUNCIPAILITY}
               number={4562112245947852}
               holder=""
               expires=""
-              handleAction={handleLoanFormRouting}
+              handleAction={handleBillForm}
             />
           </Grid>
         </Grid>

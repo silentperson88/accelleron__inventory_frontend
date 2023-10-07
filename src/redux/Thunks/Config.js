@@ -16,6 +16,15 @@ export const profileConfigThunk = createAsyncThunk("profile-config/api", async (
   return res.data;
 });
 
+export const electricityFormConfigThunk = createAsyncThunk("electricity-config/api", async () => {
+  const res = await ApiService.get("paysprint/config/electricity", {
+    headers: { Authorization: `Bearer ${Sessions.userToken}` },
+  })
+    .then((r) => r)
+    .catch((err) => err.response);
+  return res;
+});
+
 export const equipmentConfig = createAsyncThunk("equipment-config/api", async () => {
   const res = await ApiService.get("files/equipment", {
     headers: { Authorization: `Bearer ${Sessions.userToken}` },
