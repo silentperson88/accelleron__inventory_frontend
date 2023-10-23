@@ -4,6 +4,9 @@ import CustomerLogin from "layouts/authentication/sign-in/customerLogin";
 import ResetPassword from "layouts/authentication/reset-password";
 import ForgotPassword from "layouts/authentication/forgot-password";
 import ClientHome from "layouts/mobileProfile";
+import LoanDashboard from "layouts/loanForm";
+import LoanData from "layouts/loanForm/loanData";
+import FormScreen from "layouts/loanForm/formScreen";
 import Bill from "layouts/billPayments";
 import LoanForm from "layouts/mobileProfile/LoanForm";
 import MobileUsers from "layouts/mobileUsers";
@@ -73,6 +76,28 @@ const adminRoutes = [
   },
   {
     type: "collapse",
+    name: "Loan Form",
+    key: "client/loan-form",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">credit_score</Icon>,
+    route: "/client/loan-form",
+    component: <LoanDashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Loan Data",
+    key: "client/loan-data",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">credit_score</Icon>,
+    route: "/client/loan-data",
+    component: <LoanData />,
+  },
+  {
+    type: "collapse",
     name: "Bill",
     key: "customer/bill",
     parent: "",
@@ -81,6 +106,17 @@ const adminRoutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/customer/bill",
     component: <Bill />,
+  },
+  {
+    type: "page",
+    name: "Loan form",
+    key: "client/form-screen",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/client/loan/:formIndex",
+    component: <FormScreen />,
   },
   {
     type: "page",

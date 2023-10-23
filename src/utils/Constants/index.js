@@ -32,6 +32,7 @@ import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import InfoIcon from "@mui/icons-material/Info";
 
 //  Messages or Hard Coded Data
 const TextMessage = {
@@ -190,6 +191,20 @@ const TextMessage = {
 
   // Customer Login
   INVALID_PHONE_NUMBER: "Invalid phone number",
+
+  // Redux cosntants
+  IDLE: "idle",
+  PENDING: "pending",
+  REJECTED: "rejected",
+  FULFILLED: "fullfilled",
+
+  // Laon Form
+  LOAN_FORM_SUBMIT_SUCCESS: "Loan form submitted successfully.",
+  LOAN_FORM_ERROR: "Error occured while fetching loan form.",
+  LOAN_FORM_SUCCESS: "Loan form fetched successfully.",
+  LOAN_FORM_UPDATE_SUCCESS: "Loan form updated successfully.",
+  LOAN_FORM_DELETE_SUCCESS: "Loan form deleted successfully.",
+  LOAN_FORM_DELETE_ERROR: "Loan form cannot be deleted.",
 };
 
 // Page titles
@@ -202,6 +217,7 @@ export const PageTitles = {
   BUSINESS_LOAN: "Business Loan",
   AUTO_LOAN: "Auto Loan",
   EDUCATION_LOAN: "Education Loan",
+  LOAN_DATA: "Loan Data",
 
   // Bill Payment Types
   ELECTRICITY: "Electricity Bill",
@@ -431,6 +447,7 @@ export const Icons = {
   ),
   CHEKOUT: <ShoppingCartCheckoutIcon fontSize="medium" sx={{ cursor: "pointer" }} />,
   ATTACHMENT: <AttachFileIcon fontSize="small" sx={{ cursor: "pointer" }} />,
+  INFO: <InfoIcon fontSize="small" sx={{ cursor: "pointer" }} />,
 };
 
 // custom jsx components
@@ -550,6 +567,11 @@ export const defaultData = {
   SHIFT_ACTIVITY_SCREEN_ID: "shift_activity_08",
   EQUIPMENT_SCREEN_ID: "equipment_10",
   WAREHOUSE_SCREEN_ID: "warehouse_11",
+
+  HOME_LOAN_SCREEN_ID: "homeLoan_01",
+  PERSONAL_LOAN_SCREEN_ID: "personalLoan_02",
+  BUSINESS_LOAN_SCREEN_ID: "businessLoan_04",
+  CAR_LOAN_SCREEN_ID: "carLoan_03",
 };
 
 export const countryList = Object.values(countries.countries).map((country) => country.name);

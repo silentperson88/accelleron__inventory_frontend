@@ -12,6 +12,7 @@ import FeedbackSlice from "redux/Slice/Feedback";
 import ProductSlice from "redux/Slice/Equipment";
 import WarehouseSlice from "redux/Slice/Warehouse";
 import SettingSlice from "redux/Slice/Settings";
+import LoanConfigSlice from "redux/Slice/LoanConfig.slice";
 
 export const rootReducer = combineReducers({
   config: ConfigReducer,
@@ -27,6 +28,7 @@ export const rootReducer = combineReducers({
   product: ProductSlice,
   Warehouse: WarehouseSlice,
   setting: SettingSlice,
+  loan: LoanConfigSlice,
 });
 
 const store = configureStore({

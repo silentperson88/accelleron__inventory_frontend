@@ -11,6 +11,8 @@ import {
   FormGroup,
   FormHelperText,
   Icon,
+  IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Modal,
@@ -18,6 +20,7 @@ import {
   Slider,
   Switch,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
@@ -26,7 +29,6 @@ import ModalTitle from "examples/NewDesign/ModalTitle";
 import { useDispatch, useSelector } from "react-redux";
 import style from "assets/style/Modal";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { createSafetyCardThunk } from "redux/Thunks/SafetyCard";
 import uploadImageThunk from "redux/Thunks/ImageUpload";
 import { openSnackbar } from "redux/Slice/Notification";
 import moment from "moment";
@@ -37,6 +39,8 @@ import FormControlErrorStyles from "assets/style/Component";
 import MDInput from "components/MDInput";
 import FullScreenImageComponent from "components/ViewFullImage/ViewImage";
 import configThunk from "redux/Thunks/Config";
+import { submitLoanFormThunk } from "redux/Thunks/LoanFormConfig";
+import "react-datepicker/dist/react-datepicker.css";
 
 function safetyCardForm({
   screenIndex,
@@ -54,31 +58,23 @@ function safetyCardForm({
   const [image, setImage] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [safetyCardBody, setSafetyCardBody] = useState({});
-  const requiredList = [
-    "title",
-    "project",
-    "location",
-    "category",
-    "description",
-    "subject",
-    "type",
-    "time",
-    "severity",
-    "likelihood",
-    "savingAction",
-    "savingRule",
-    "actionsTaken",
-    "statusUpdate",
-    "status",
-    "images",
-    "defaultProject",
-  ];
-  const ConfigData = useSelector((state) => state.config);
+  const [requiredList, setRequiredList] = useState([]);
+  const ConfigData = useSelector((state) => state.loan);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setForm(ConfigData.screens?.[screenIndex].screensInfo);
   }, [ConfigData]);
+
+  useEffect(() => {
+    if (Object.keys(form).length > 0) {
+      form.properties.forEach((item) => {
+        if (item.IsRequired) {
+          setRequiredList((prev) => [...prev, item.id]);
+        }
+      });
+    }
+  }, [form]);
 
   const handleEditClose = () => {
     setSafetyCardBody([]);
@@ -102,7 +98,12 @@ function safetyCardForm({
         ) {
           newErrors[item.id] = `This field is required`;
         }
-        if (item.IsRequired && !item.questionId && safetyCardBody[item.id]?.trim() === "") {
+        if (
+          item.IsRequired &&
+          !item.questionId &&
+          typeof safetyCardBody[item.id] === "string" &&
+          safetyCardBody[item.id]?.trim() === ""
+        ) {
           newErrors[item.id] = "Empty Space is not allowed";
         }
         if (item.IsRequired && item.questionId) {
@@ -123,16 +124,21 @@ function safetyCardForm({
     return Object.values(newErrors).filter((val) => val !== "").length === 0;
   };
 
-  const updateFormField = (idArray = []) => {
+  const updateFormField = (idArray = [], parentId) => {
     if (idArray.length > 0) {
       const temp = JSON.parse(JSON.stringify(form));
       const t = [];
       temp.properties.forEach((item, i) => {
-        const index = idArray.findIndex((val) => val === item?.id);
-        if (index !== -1) {
-          temp.properties[i].isDefaultVisible = true;
-          temp.properties[i].IsRequired = true;
-          t.push(item);
+        if (item.parentFieldId === parentId) {
+          const index = idArray.findIndex((val) => val === item?.id);
+          if (index !== -1) {
+            temp.properties[i].isDefaultVisible = true;
+            temp.properties[i].IsRequired = true;
+            t.push(item);
+          } else {
+            temp.properties[i].isDefaultVisible = false;
+            temp.properties[i].IsRequired = false;
+          }
         }
       });
       setForm(temp);
@@ -162,7 +168,6 @@ function safetyCardForm({
     } else {
       temp[name] = value;
     }
-
     form?.properties.forEach((item) => {
       // remove child field when parent field is changed
       if (item?.parentFieldId === name) {
@@ -199,19 +204,7 @@ function safetyCardForm({
 
   const handleBoolean = (name, id, value) => {
     const temp = safetyCardBody;
-    const index = temp.dynamicFields.findIndex((val) => val.fieldId === id);
-    if (index >= 0) {
-      temp.dynamicFields[index].value = [value.toString()];
-      setSafetyCardBody({ ...temp });
-    } else {
-      const dynamicFieldValueObject = {
-        title: name,
-        value: [value.toString()],
-        fieldId: id,
-      };
-      temp.dynamicFields.push(dynamicFieldValueObject);
-      setSafetyCardBody({ ...temp });
-    }
+
     temp[name] = value;
     setSafetyCardBody({ ...temp });
   };
@@ -240,13 +233,13 @@ function safetyCardForm({
   useEffect(() => {
     if (openSafetyModal) {
       const temp = {};
-      temp.cardType = `${cardType.toLowerCase()}`;
       temp.dynamicFields = [];
       setSafetyCardBody({ ...temp });
     } else {
       setImage([]);
     }
   }, [openSafetyModal]);
+
   const createUnsafecard = async () => {
     setLoading(true);
     const val = validate();
@@ -257,19 +250,32 @@ function safetyCardForm({
           tempBody[key] = tempBody[key].trim();
         }
       });
-      const res = await dispatch(createSafetyCardThunk(tempBody));
-      if (res.error === undefined) {
+      const res = await dispatch(submitLoanFormThunk({ type: form.configType, body: tempBody }));
+      if (res.payload.status === 200) {
         setOpenSafetyModal(false);
         setImageUrls([]);
         setImage([]);
         handleReset();
         dispatch(
           openSnackbar({
-            message: Constants.SAFETY_CARD_CREATE_SUCCESS,
+            message: Constants.LOAN_FORM_SUBMIT_SUCCESS,
             notificationType: Constants.NOTIFICATION_SUCCESS,
           })
         );
         await dispatch(configThunk());
+      } else if (res.payload.status === 422) {
+        const newErrors = {};
+        res.payload.data.data.error.forEach((item) => {
+          const [keys, values] = Object.entries(item)[0];
+          newErrors[keys] = values;
+        });
+        setErrors(newErrors);
+        dispatch(
+          openSnackbar({
+            message: res.payload.data.message,
+            notificationType: Constants.NOTIFICATION_ERROR,
+          })
+        );
       }
     }
     setLoading(false);
@@ -374,7 +380,7 @@ function safetyCardForm({
             justifyContent="space-between"
             sx={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0, height: pxToRem(72) }}
           >
-            <ModalTitle title={`${cardType} Card`} color="white" />
+            <ModalTitle title={form.title} color="white" />
 
             <Icon
               sx={{ cursor: "pointer", color: "beige" }}
@@ -419,12 +425,32 @@ function safetyCardForm({
                           fontSize: pxToRem(14),
                           fontWeight: 500,
                           color: "#344054",
+                          width: "220px",
                         }}
                       >
-                        {item.IsRequired ? `${item.title}*` : item.title}
+                        {item.type !== "termsAndConditions" ? (
+                          `${item.title} ${item.IsRequired && "*"}`
+                        ) : (
+                          <MDBox>
+                            <MDTypography
+                              variant="caption"
+                              sx={{ fontSize: pxToRem(14), fontWeight: 500, color: "#344054" }}
+                            >
+                              I have read and agree to the terms and conditions
+                            </MDTypography>
+                            <Tooltip title={item.title}>
+                              <IconButton
+                                sx={{ padding: 0, marginLeft: 0, marginTop: 1 }}
+                                onClick={() => handleImage(item.id)}
+                              >
+                                {Icons.INFO}
+                              </IconButton>
+                            </Tooltip>
+                          </MDBox>
+                        )}
                       </MDTypography>
 
-                      {item.type === "text" ? (
+                      {item.type === "text" || item.type === "email" ? (
                         <MDInput
                           sx={{
                             width: 400,
@@ -462,7 +488,7 @@ function safetyCardForm({
                         />
                       ) : null}
 
-                      {item.type === "options" && item.parentFieldId === "" ? (
+                      {item.type === "dropdown" && item.parentFieldId === "" ? (
                         <FormControl
                           sx={{
                             mr: 2,
@@ -482,7 +508,7 @@ function safetyCardForm({
                                   (opt) => opt.id === e.target.value
                                 );
                                 if (val !== -1) {
-                                  updateFormField(item?.options[val]?.dependentFieldIds);
+                                  updateFormField(item?.options[val]?.dependentFieldIds, item.id);
                                 }
                               }
                               handleChange(
@@ -526,7 +552,7 @@ function safetyCardForm({
                                     variant="caption"
                                     sx={{ textTransform: "capitalize" }}
                                   >
-                                    {val.title}
+                                    {val?.title}
                                   </MDTypography>
                                 </MDBox>
                               );
@@ -599,7 +625,7 @@ function safetyCardForm({
                         </FormControl>
                       ) : null}
 
-                      {(item.type === "options" || item.type === "autocomplete") &&
+                      {(item.type === "dropdown" || item.type === "autocomplete") &&
                         item.parentFieldId !== "" &&
                         (() => {
                           const parentField = form?.properties.find(
@@ -689,8 +715,7 @@ function safetyCardForm({
                             />
                           );
                         })()}
-
-                      {item.type === "boolean" ? (
+                      {item.type === "boolean" || item.type === "termsAndConditions" ? (
                         <MDBox
                           sx={{ width: 400, mt: 1, mr: 3.2 }}
                           display="flex"
@@ -706,7 +731,7 @@ function safetyCardForm({
                               },
                             }}
                             onChange={(e) =>
-                              handleBoolean(item.title, item.questionId, e.target.checked)
+                              handleBoolean(item.id, item.questionId, e.target.checked)
                             }
                             error={Boolean(errors[item.id])}
                           />
@@ -715,6 +740,7 @@ function safetyCardForm({
                           </FormHelperText>
                         </MDBox>
                       ) : null}
+
                       {item.type === "checkbox" ? (
                         <MDBox sx={{ width: 400, mr: 2 }} display="flex" justifyContent="start">
                           <FormGroup error={Boolean(errors[item.id])}>
@@ -813,6 +839,58 @@ function safetyCardForm({
                           />
                         </MDBox>
                       ) : null}
+
+                      {item.type === "mobile" ? (
+                        <MDBox
+                          sx={{ width: 400, mr: 2, mt: 1 }}
+                          display="flex"
+                          justifyContent="start"
+                        >
+                          <MDInput
+                            sx={{
+                              width: 400,
+                            }}
+                            type="number"
+                            placeholder={`Please Enter ${item.title.toUpperCase()}`}
+                            id={item.id}
+                            name={item.id}
+                            error={Boolean(errors[item.id])}
+                            helperText={errors[item.id]}
+                            value={
+                              safetyCardBody[item.id] && safetyCardBody[item.id].split("+91")[1]
+                            }
+                            FormHelperTextProps={{
+                              sx: { marginLeft: 0 },
+                            }}
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start">+91</InputAdornment>,
+                            }}
+                            onChange={(e) => {
+                              if (
+                                safetyCardBody[item.id] &&
+                                safetyCardBody[item.id].split("")[0] === "+"
+                              )
+                                handleChange(
+                                  item.id,
+                                  // `+91${safetyCardBody[item.id] ?? ""}${e.target.value}`,
+                                  e.target.value,
+                                  item.questionId ? item.questionId : item.id
+                                );
+                              else {
+                                handleChange(
+                                  item.id,
+                                  `+91${e.target.value}`,
+                                  item.questionId ? item.questionId : item.id
+                                );
+                              }
+                            }}
+                          />
+                        </MDBox>
+                      ) : null}
+
                       {item.type === "slider" ? (
                         <MDBox
                           sx={{ width: 400, mr: 2, mt: 1 }}
