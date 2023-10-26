@@ -32,6 +32,12 @@ const initialState = {
       index: 3,
       screensInfo: {},
     },
+    {
+      name: "Credit Card",
+      id: defaultData.CREDIT_CARD_SCREEN_ID,
+      index: 4,
+      screensInfo: {},
+    },
   ],
 };
 

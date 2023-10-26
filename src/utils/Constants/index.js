@@ -572,6 +572,7 @@ export const defaultData = {
   PERSONAL_LOAN_SCREEN_ID: "personalLoan_02",
   BUSINESS_LOAN_SCREEN_ID: "businessLoan_04",
   CAR_LOAN_SCREEN_ID: "carLoan_03",
+  CREDIT_CARD_SCREEN_ID: "creditCard_05",
 };
 
 export const countryList = Object.values(countries.countries).map((country) => country.name);
