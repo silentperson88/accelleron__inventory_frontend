@@ -11,7 +11,7 @@ import MDTypography from "components/MDTypography";
 // Images
 import pattern from "assets/images/illustrations/pattern-tree.svg";
 
-function MasterCard({ type, color, number, holder, expires, handleAction }) {
+function MasterCard({ type, color, number, holder, expires, handleAction, logo }) {
   const numbers = [...`${number}`];
 
   if (numbers.length < 16 || numbers.length > 16) {
@@ -59,16 +59,20 @@ function MasterCard({ type, color, number, holder, expires, handleAction }) {
         <MDTypography variant="h6" color="white" fontWeight="medium" textTransform="capitalize">
           {holder}
         </MDTypography>
-        <MDTypography
-          variant="h5"
-          color="white"
-          fontWeight="medium"
-          sx={{ mt: 3, mb: 3, pb: 1, w: 100, textAlign: "center" }}
-        >
-          {type}
-          {/* {num1}&nbsp;&nbsp;&nbsp;{num2}&nbsp;&nbsp;&nbsp;{num3}&nbsp;&nbsp;&nbsp;{num4} */}
-        </MDTypography>
-
+        <MDBox display="flex" justifyContent="center" alignItems="center">
+          {logo ? (
+            <img src={logo} alt="logo" width="12%" height="20%" style={{ objectFit: "contain" }} />
+          ) : null}
+          <MDTypography
+            variant="h5"
+            color="white"
+            fontWeight="medium"
+            sx={{ mt: 3, mb: 3, ml: 2, pb: 1, w: 100, textAlign: "center" }}
+          >
+            {type}
+            {/* {num1}&nbsp;&nbsp;&nbsp;{num2}&nbsp;&nbsp;&nbsp;{num3}&nbsp;&nbsp;&nbsp;{num4} */}
+          </MDTypography>
+        </MDBox>
         <MDBox display="flex" justifyContent="space-between" alignItems="center">
           <MDBox display="flex" alignItems="center">
             <MDBox mr={3} lineHeight={1}>
@@ -114,6 +118,7 @@ MasterCard.propTypes = {
   expires: PropTypes.string.isRequired,
   type: PropTypes.string,
   handleAction: PropTypes.func,
+  logo: PropTypes.string.isRequired,
 };
 
 export default MasterCard;

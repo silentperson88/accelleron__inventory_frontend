@@ -10,7 +10,7 @@ import MDButton from "components/MDButton";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bgLogin.jpg";
+import bgImage from "assets/images/authentication-background.jpg";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import ForgetPassword from "redux/Thunks/Authentication";
