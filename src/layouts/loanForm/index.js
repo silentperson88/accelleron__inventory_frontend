@@ -8,7 +8,7 @@ import PageTitle from "examples/NewDesign/PageTitle";
 import SafetyCardForm from "examples/modal/SafetyCardForm/SafetyCardForm";
 
 // Constant
-import Constants, { PageTitles } from "utils/Constants";
+import Constants, { PageTitles, defaultData } from "utils/Constants";
 
 // Redux component
 import MasterCard from "examples/Cards/MasterCard";
@@ -17,6 +17,13 @@ import { Grid } from "@mui/material";
 import loanConfigThunk from "redux/Thunks/LoanFormConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { openSnackbar } from "redux/Slice/Notification";
+
+// Logos
+import perosnalLoan from "assets/images/icons/personal-loan.png";
+import carLoan from "assets/images/icons/car-loan.png";
+import homeLoan from "assets/images/icons/home-loan.png";
+import creditCardLoan from "assets/images/icons/credit-card.png";
+import bussinessLoan from "assets/images/icons/loan-against-property.png";
 
 function ProfileForm() {
   const [open, setOpen] = useState({
@@ -27,6 +34,28 @@ function ProfileForm() {
   });
   const loanSlice = useSelector((state) => state.loan);
   const cardColor = ["primary", "secondary", "info", "success", "warning", "error"];
+  const productLogos = [
+    {
+      id: defaultData.CREDIT_CARD_SCREEN_ID,
+      logo: creditCardLoan,
+    },
+    {
+      id: defaultData.PERSONAL_LOAN_SCREEN_ID,
+      logo: perosnalLoan,
+    },
+    {
+      id: defaultData.BUSINESS_LOAN_SCREEN_ID,
+      logo: bussinessLoan,
+    },
+    {
+      id: defaultData.CAR_LOAN_SCREEN_ID,
+      logo: carLoan,
+    },
+    {
+      id: defaultData.HOME_LOAN_SCREEN_ID,
+      logo: homeLoan,
+    },
+  ];
   const dispatch = useDispatch();
 
   const handleLoanForm = (formIndex) => {
@@ -76,6 +105,7 @@ function ProfileForm() {
                 holder=""
                 expires=""
                 handleAction={() => handleLoanForm(index)}
+                logo={productLogos.find((logo) => logo.id === screen.id).logo}
               />
             </Grid>
           ))}

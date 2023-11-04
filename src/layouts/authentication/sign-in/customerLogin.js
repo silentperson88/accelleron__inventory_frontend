@@ -14,7 +14,7 @@ import MDButton from "components/MDButton";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bgLogin.jpg";
+import bgImage from "assets/images/authentication-background.jpg";
 // import logo from "assets/images/loginLogo.png";
 import { InputAdornment, InputLabel } from "@mui/material";
 import pxToRem from "assets/theme/functions/pxToRem";

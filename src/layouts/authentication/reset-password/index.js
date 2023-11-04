@@ -10,7 +10,7 @@ import MDButton from "components/MDButton";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bgLogin.jpg";
+import bgImage from "assets/images/authentication-background.jpg";
 import { InputAdornment, IconButton, CircularProgress, InputLabel } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
