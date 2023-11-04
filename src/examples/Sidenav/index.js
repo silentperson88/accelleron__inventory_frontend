@@ -289,7 +289,15 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
       variant="permanent"
       ownerState={{ transparentSidenav, whiteSidenav, miniSidenav, darkMode }}
     >
-      <MDBox pt={0.625} pb={0} px={2} textAlign="center">
+      <MDBox
+        pt={0.625}
+        pb={0}
+        px={2}
+        textAlign="center"
+        sx={{
+          backgroundColor: "#eceff7",
+        }}
+      >
         <MDBox component={NavLink} to="/" display="flex" alignItems="center">
           {brand && (
             <MDBox

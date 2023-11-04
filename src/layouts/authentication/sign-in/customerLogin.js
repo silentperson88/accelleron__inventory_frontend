@@ -26,7 +26,7 @@ import { Colors } from "utils/Constants";
 
 // Logo
 import logo from "assets/images/brand.png";
-import firebase from "firebaseConfig/firebaseConfig";
+import firebase from "firebaseConfig";
 
 function CustomerLogin() {
   //   const dispatch = useDispatch();
@@ -132,7 +132,7 @@ function CustomerLogin() {
           }}
         >
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
+            <MDBox component="img" src={logo} alt="Brand" width="13rem" marginTop="42px" />
           </MDBox>
           <MDBox display="flex" alignItems="center" justifyContent="center">
             <MDBox pt={4} pb={3} px={3}>
