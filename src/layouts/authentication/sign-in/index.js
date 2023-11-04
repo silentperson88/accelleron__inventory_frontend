@@ -126,7 +126,7 @@ function Basic() {
           }}
         >
           <MDBox display="flex" alignItems="center" justifyContent="center">
-            <MDBox component="img" src={logo} alt="Brand" width="8rem" marginTop="42px" />
+            <MDBox component="img" src={logo} alt="Brand" width="13rem" marginTop="42px" />
           </MDBox>
           <MDTypography textAlign="center" color="error" mt={1}>
             {credentialError !== "" ? credentialError : null}

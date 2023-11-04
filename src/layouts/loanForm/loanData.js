@@ -44,7 +44,7 @@ function feedbacks() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox display="flex" justifyContent="space-between">
-        <PageTitle title={PageTitles.LOAN_DATA} />
+        <PageTitle title={PageTitles.LEAD_BAY} />
       </MDBox>
       <MDBox mt={2}>
         <DataTable

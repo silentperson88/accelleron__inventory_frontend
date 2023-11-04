@@ -125,24 +125,17 @@ function DashboardNavbar({ absolute, light, isMini }) {
             <MDBox color={light ? "white" : "inherit"} sx={{ marginRight: -2 }}>
               {role !== defaultData.SUPER_ADMIN_ROLE ||
               (role === defaultData.SUPER_ADMIN_ROLE && Sessions.isSuperAdminViewingAdminPanel) ? (
-                <>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    color="inherit"
-                    sx={navbarMobileMenu}
-                    onClick={handleMiniSidenav}
-                  >
-                    <Icon sx={iconsStyle} fontSize="medium">
-                      {miniSidenav ? "menu_open" : "menu"}
-                    </Icon>
-                  </IconButton>
-                  {/* <Link to="/client/profile">
-                    <IconButton sx={navbarIconButton} size="small" disableRipple>
-                      <Icon sx={iconsStyle}>account_circle</Icon>
-                    </IconButton>
-                  </Link> */}
-                </>
+                <IconButton
+                  size="small"
+                  disableRipple
+                  color="inherit"
+                  sx={navbarMobileMenu}
+                  onClick={handleMiniSidenav}
+                >
+                  <Icon sx={iconsStyle} fontSize="medium">
+                    {miniSidenav ? "menu_open" : "menu"}
+                  </Icon>
+                </IconButton>
               ) : null}
               {renderMenu()}
             </MDBox>

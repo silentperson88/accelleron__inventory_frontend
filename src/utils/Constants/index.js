@@ -217,7 +217,7 @@ export const PageTitles = {
   BUSINESS_LOAN: "Business Loan",
   AUTO_LOAN: "Auto Loan",
   EDUCATION_LOAN: "Education Loan",
-  LOAN_DATA: "Loan Data",
+  LEAD_BAY: "Lead Bay",
 
   // Bill Payment Types
   ELECTRICITY: "Electricity Bill",
