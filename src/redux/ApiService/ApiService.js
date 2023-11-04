@@ -5,7 +5,8 @@ import Sessions from "utils/Sessions";
 
 // Axios API Service
 const ReynardBackendApiService = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  // baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: "https://fundindia-5easi.ondigitalocean.app/api/",
   withCredentials: false,
   headers: {
     Accept: "application/json",
