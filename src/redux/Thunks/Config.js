@@ -25,6 +25,15 @@ export const electricityFormConfigThunk = createAsyncThunk("electricity-config/a
   return res;
 });
 
+export const utilityBillForm = createAsyncThunk("electricity-config/api", async (type) => {
+  const res = await ApiService.get(`paysprint/config/${type}`, {
+    headers: { Authorization: `Bearer ${Sessions.userToken}` },
+  })
+    .then((r) => r)
+    .catch((err) => err.response);
+  return res;
+});
+
 export const equipmentConfig = createAsyncThunk("equipment-config/api", async () => {
   const res = await ApiService.get("files/equipment", {
     headers: { Authorization: `Bearer ${Sessions.userToken}` },

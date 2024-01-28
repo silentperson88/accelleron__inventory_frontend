@@ -205,6 +205,20 @@ const TextMessage = {
   LOAN_FORM_UPDATE_SUCCESS: "Loan form updated successfully.",
   LOAN_FORM_DELETE_SUCCESS: "Loan form deleted successfully.",
   LOAN_FORM_DELETE_ERROR: "Loan form cannot be deleted.",
+
+  // Lead utils Banks
+  LEAD_UTILS_BANKS_CREATE_SUCCESS: "Bank created successfully.",
+  LEAD_UTILS_BANKS_UPDATE_SUCCESS: "Bank updated successfully.",
+  LEAD_UTILS_BANKS_DELETE_SUCCESS: "Bank deleted successfully.",
+  LEAD_UTILS_BANKS_DELETE_ERROR: "Bank cannot be deleted.",
+  LEAD_UTILS_BANKS_ALREADY_EXIST: "Bank already exist.",
+
+  // Lead utils Codes
+  LEAD_UTILS_CODES_CREATE_SUCCESS: "Code created successfully.",
+  LEAD_UTILS_CODES_UPDATE_SUCCESS: "Code updated successfully.",
+  LEAD_UTILS_CODES_DELETE_SUCCESS: "Code deleted successfully.",
+  LEAD_UTILS_CODES_DELETE_ERROR: "Code cannot be deleted.",
+  LEAD_UTILS_CODES_ALREADY_EXIST: "Code already exist.",
 };
 
 // Page titles
@@ -218,6 +232,11 @@ export const PageTitles = {
   AUTO_LOAN: "Auto Loan",
   EDUCATION_LOAN: "Education Loan",
   LEAD_BAY: "Lead Bay",
+  LEAD_UTILS_BANKS: "Banks",
+  LEAD_UTILS_CODES: "Codes",
+  MOBILE_RECHARGE: "Mobile Recharge",
+  BANK_ACCOUNT_OPENING: "Bank Account Opening",
+  CIBIL_SCORE: "CIBIL Score",
 
   // Bill Payment Types
   ELECTRICITY: "Electricity Bill",
@@ -299,6 +318,8 @@ export const ButtonTitles = {
   APPROVED: "Approved",
   REJECTED: "Rejected",
   PLACE_ORDER: "Place Order",
+  LEAD_UTILS_BANKS: "Add Bank",
+  LEAD_UTILS_CODES: "Add Code",
 };
 
 // License and Permission
@@ -499,6 +520,27 @@ export const ModalContent = {
   DELETE_WAREHOUSE_MESSAGE: "Are you sure you want to delete this warehouse?",
   DELETE_EQUIPMENT_TITLE: "Delete Equipment",
   DELETE_EQUIPMENT_MESSAGE: "Are you sure you want to delete this equipment?",
+
+  // Lead Utils Banks
+  BANK_STATUS_TITLE: "Bank status",
+  BANK_ACTIVE_STATUS_MESSAGE: "Are you sure you want to activate this bank?",
+  BANK_INACTIVE_STATUS_MESSAGE: "Are you sure you want to deactivate this bank?",
+  CREATE_BANK_TITLE: "Create Bank",
+  UPDATE_BANK_TITLE: "Update Bank",
+  PROFILE_FUNCTION_DELETE_TITLE: "Delete Function",
+  PROFILE_FUNCTION_DELETE_MESSAGE: "Are you sure you want to delete this function?",
+
+  // Lead Utils Codes
+  CODE_STATUS_TITLE: "Code status",
+  CODE_ACTIVE_STATUS_MESSAGE: "Are you sure you want to activate this code?",
+  CODE_INACTIVE_STATUS_MESSAGE: "Are you sure you want to deactivate this code?",
+  CREATE_CODE_TITLE: "Create Code",
+  UPDATE_CODE_TITLE: "Update Code",
+  DELETE_CODE_TITLE: "Delete Code",
+  DELETE_CODE_MESSAGE: "Are you sure you want to delete this code?",
+
+  // Lead Utils
+  EDIT_LEAD_DATA: "Edit Lead Bay Data",
 };
 
 // Form Fields types

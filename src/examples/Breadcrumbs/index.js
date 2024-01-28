@@ -45,7 +45,7 @@ function Breadcrumbs({ icon, light }) {
 
   return (
     <MDBox display="flex" justifyContent="center" mr={{ xs: 0, xl: 8 }}>
-      <Link to="/client/loan-form">
+      <Link to="/client/home">
         <MDTypography
           component="span"
           variant="body2"

@@ -10,6 +10,13 @@ import FormScreen from "layouts/loanForm/formScreen";
 import Bill from "layouts/billPayments";
 import LoanForm from "layouts/mobileProfile/LoanForm";
 import MobileUsers from "layouts/mobileUsers";
+import LeadUtilsBanks from "layouts/leadUtils/bank/Bank";
+import LeadUtilsCodes from "layouts/leadUtils/codes/Code";
+
+// Upcoming Layouts
+import MobileRecharge from "layouts/mobileRecharge/mobileRecharge";
+import BankAccountOpening from "layouts/bankAccountOpening/bankAccountOpening";
+import CibilScore from "layouts/cibilScore/cibilScore";
 
 // Super Admin Layouts
 import Home from "layouts/superadmin/dashboard";
@@ -140,6 +147,61 @@ const adminRoutes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/client/mobileusers",
     component: <MobileUsers />,
+  },
+  {
+    type: "collapse",
+    name: "Lead Utils Banks",
+    key: "client/lead-utils-banks",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/lead-utils-banks",
+    component: <LeadUtilsBanks />,
+  },
+  {
+    type: "collapse",
+    name: "Lead Utils Codes",
+    key: "client/lead-utils-codes",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/lead-utils-codes",
+    component: <LeadUtilsCodes />,
+  },
+  {
+    type: "collapse",
+    name: "Mobile Recharge",
+    key: "client/mobile-recharge",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/mobile-recharge",
+    component: <MobileRecharge />,
+  },
+  {
+    type: "collapse",
+    name: "Bank Account Opening",
+    key: "client/bank-account-opening",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/bank-account-opening",
+    component: <BankAccountOpening />,
+  },
+  {
+    type: "collapse",
+    name: "Cibil Score",
+    key: "client/cibil-score",
+    parent: "",
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/cibil-score",
+    component: <CibilScore />,
   },
 ];
 

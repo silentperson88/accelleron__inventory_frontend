@@ -6,7 +6,7 @@ import ModalTitle from "examples/NewDesign/ModalTitle";
 import pxToRem from "assets/theme/functions/pxToRem";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { electricityFormConfigThunk } from "redux/Thunks/Config";
+import { utilityBillForm } from "redux/Thunks/Config";
 import FTextField from "components/Form/FTextField";
 import ReactDatePicker from "react-datepicker";
 import DateTime from "components/DateTime/DateTime";
@@ -65,7 +65,9 @@ function index({ open, handleClose, title, actionButton = "Submit" }) {
 
   useEffect(() => {
     (async () => {
-      const res = await dispatch(electricityFormConfigThunk());
+      const tempType = title.split(" ");
+      const type = `${tempType[0].charAt(0).toUpperCase()}${tempType[0].slice(1)}`;
+      const res = await dispatch(utilityBillForm(type));
       setBillForm(res.payload.data.data);
     })();
   }, [title]);

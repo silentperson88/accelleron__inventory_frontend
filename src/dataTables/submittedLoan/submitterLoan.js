@@ -4,8 +4,11 @@
 import { useEffect, useState } from "react";
 
 import Author from "components/Table/Author";
+import MDBox from "components/MDBox";
+import { IconButton } from "@mui/material";
+import { Icons } from "utils/Constants";
 
-export default function data(loanData) {
+export default function data(loanData, handleEditModal) {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
@@ -19,6 +22,22 @@ export default function data(loanData) {
           phone: <Author name={item.mobileNumber} />,
           pinCode: <Author name={item.pinCode} />,
           loanAmount: <Author name={item.loanAmount} />,
+          status: <Author name={item?.status} />,
+          sourceOfLead: <Author name={item?.sourceOfLead} />,
+          imd: <Author name={item?.imd} />,
+          bank: <Author name={item?.bank} />,
+          code: <Author name={item?.code} />,
+          action: (
+            <MDBox>
+              <IconButton
+                fontSize="medium"
+                sx={{ cursor: "pointer", color: "#475467" }}
+                onClick={() => handleEditModal(item)}
+              >
+                {Icons.EDIT2}
+              </IconButton>
+            </MDBox>
+          ),
         };
         return temp;
       });
@@ -35,6 +54,12 @@ export default function data(loanData) {
       { Header: "Phone", accessor: "phone", width: "10%" },
       { Header: "Pin code", accessor: "pinCode", width: "10%" },
       { Header: "Loan Amount", accessor: "loanAmount", width: "10%" },
+      { Header: "Status", accessor: "status", width: "10%" },
+      { Header: "Source of Lead", accessor: "sourceOfLead", width: "10%" },
+      { Header: "IMD", accessor: "imd", width: "10%" },
+      { Header: "Bank", accessor: "bank", width: "10%" },
+      { Header: "Code", accessor: "code", width: "10%" },
+      { Header: "Action", accessor: "action", width: "10%" },
     ],
     rows,
   };
