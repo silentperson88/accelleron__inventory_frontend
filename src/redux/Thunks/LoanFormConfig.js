@@ -36,4 +36,17 @@ export const getAllSubmitterLoanFormThunk = createAsyncThunk(
   }
 );
 
+export const updateLeadDataThunk = createAsyncThunk("loan-form-update/api", async (data) => {
+  const res = await ApiService.patch(
+    `loan/${data.id}`,
+    { ...data.body },
+    {
+      headers: { Authorization: `Bearer ${Sessions.userToken}` },
+    }
+  )
+    .then((r) => r)
+    .catch((error) => error.response);
+  return res;
+});
+
 export default loanConfigThunk;

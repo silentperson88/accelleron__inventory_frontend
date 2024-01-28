@@ -298,7 +298,7 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
           backgroundColor: "#eceff7",
         }}
       >
-        <MDBox component={NavLink} to="/" display="flex" alignItems="center">
+        <MDBox component={NavLink} to="/client/home" display="flex" alignItems="center">
           {brand && (
             <MDBox
               component="img"
