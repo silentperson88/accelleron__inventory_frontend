@@ -68,8 +68,8 @@ function feedbacks() {
       status: data?.status,
       sourceOfLead: data?.sourceOfLead,
       imd: data?.imd,
-      bank: data?.bank,
-      code: data?.code,
+      bank: data?.bank?.[Constants.MONGOOSE_ID],
+      code: data?.code?.[Constants.MONGOOSE_ID],
       currentStatus: data?.currentStatus,
       remark: data?.remark,
     });
