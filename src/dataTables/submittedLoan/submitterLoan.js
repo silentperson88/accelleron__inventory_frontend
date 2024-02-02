@@ -25,8 +25,8 @@ export default function data(loanData, handleEditModal) {
           status: <Author name={item?.status} />,
           sourceOfLead: <Author name={item?.sourceOfLead} />,
           imd: <Author name={item?.imd} />,
-          bank: <Author name={item?.bank} />,
-          code: <Author name={item?.code} />,
+          bank: <Author name={item?.bank?.bankName} />,
+          code: <Author name={item?.Code?.code} />,
           action: (
             <MDBox>
               <IconButton
