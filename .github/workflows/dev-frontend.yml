@@ -1,5 +1,5 @@
 # backend.yml
-name: Frontend Deployment
+name: Frontend dev Deployment
 
 on:
   push:
