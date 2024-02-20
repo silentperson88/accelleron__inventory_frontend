@@ -37,6 +37,12 @@ jobs:
       - name: Stop PM2
         run: |
           sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "pm2 stop 0"
+       - name: Check if build folder exists
+        run: |
+          if [ ! -d "build" ]; then
+            echo "Build folder does not exist. Exiting deployment."
+            exit 1
+          fi
 
       - name: Copy build to server
         uses: appleboy/scp-action@master
