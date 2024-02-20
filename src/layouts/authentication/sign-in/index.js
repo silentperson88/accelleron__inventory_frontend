@@ -70,7 +70,6 @@ function Basic() {
       const body = { email, password, isMobile: false };
 
       const res = await dispatch(loginThunk(body));
-      console.log(res);
       setLoading(false);
       if (res.payload.status !== 200) {
         setCredentialError(res.payload.data.message);

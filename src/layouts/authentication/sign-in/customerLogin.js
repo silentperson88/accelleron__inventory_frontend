@@ -1,5 +1,5 @@
 /* eslint-disable react/self-closing-comp */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -42,8 +42,6 @@ function CustomerLogin() {
   const handlePhoneValidation = () => {
     const mobileNumberValidation = Validations.validate("phone", mobileNumber, 10, 10, true);
 
-    console.log(mobileNumberValidation);
-
     if (mobileNumberValidation !== "") {
       setMobileNumberError(mobileNumberValidation);
       return false;
@@ -63,24 +61,17 @@ function CustomerLogin() {
   const handleSignInWithPhoneNumber = async () => {
     if (handlePhoneValidation() === false) return;
     const recaptchaContainer = document.getElementById("recaptcha-container");
-    console.log(recaptchaContainer);
     const appVerifier = new firebase.auth.RecaptchaVerifier(recaptchaContainer, {
       size: "normal", // or 'normal'
-      callback: (response) => {
-        console.log("Captcha Resolved", response);
+      callback: (response) =>
         // reCAPTCHA solved, allow signInWithPhoneNumber.
-      },
+        response,
     });
 
-    try {
-      const confirmationResult = await firebase
-        .auth()
-        .signInWithPhoneNumber(mobileNumber, appVerifier);
-      setVerificationId(confirmationResult.verificationId);
-    } catch (error) {
-      console.error(error);
-      // Handle the error appropriately
-    }
+    const confirmationResult = await firebase
+      .auth()
+      .signInWithPhoneNumber(mobileNumber, appVerifier);
+    setVerificationId(confirmationResult.verificationId);
 
     setOtpSent(true);
   };
@@ -95,10 +86,6 @@ function CustomerLogin() {
     if (value.length <= 10) setMobileNumber(value);
     setMobileNumberError("");
   };
-
-  useEffect(() => {
-    console.log(verificationId);
-  }, [verificationId]);
 
   const handleOTPChange = (e) => {
     const { value } = e.target;
@@ -147,7 +134,7 @@ function CustomerLogin() {
                         marginBottom: 1,
                       }}
                     >
-                      Mobile Number
+                      Mobile Number {verificationId}
                     </InputLabel>
                     <MDInput
                       sx={{

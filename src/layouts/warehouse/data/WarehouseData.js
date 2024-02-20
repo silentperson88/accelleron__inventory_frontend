@@ -25,7 +25,6 @@ export default function data(list, handleDeleteOpen) {
   const navigate = useNavigate();
 
   const handleView = (id) => {
-    console.log(permission);
     navigate(`/client/setting/warehouse/${id}`, { state: { warehouse: id } });
   };
 
