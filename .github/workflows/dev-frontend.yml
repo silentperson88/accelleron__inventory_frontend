@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           password: ${{ secrets.DROPLET_PASSWORD }}
           source: "build" # Adjust this path to match the output path of your build command
-          target: "finvibes/frontend_funding_india" # Adjust this path to match your server directory
+          target: "" # Adjust this path to match your server directory
 
       - name: Start PM2
         run: |
