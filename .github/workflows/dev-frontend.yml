@@ -25,7 +25,7 @@ jobs:
       - name: Build Frontend
         run: npm run build
 
-  deploy:
+   deploy:
     runs-on: ubuntu-latest
 
     needs: build
@@ -38,14 +38,21 @@ jobs:
         run: |
           sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "pm2 stop 0"
 
+      - name: Check if build folder exists
+        run: |
+          if [ ! -d "build" ]; then
+            echo "Build folder does not exist. Exiting deployment."
+            exit 1
+          fi
+
       - name: Copy build to server
-        uses: appleboy/scp-action@v0.1.7
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.KEY }}
+          password: ${{ secrets.DROPLET_PASSWORD }}
           source: "build" # Adjust this path to match the output path of your build command
-          target: "" # Adjust this path to match your server directory
+          target: "finvibes/frontend_funding_india" # Adjust this path to match your server directory
 
       - name: Start PM2
         run: |
