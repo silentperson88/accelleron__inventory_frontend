@@ -43,8 +43,8 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
-          password: ${{ secrets.DROPLET_PASSWORD }}
           port: 22
+          password: ${{ secrets.DROPLET_PASSWORD }}
           source: "build" # Adjust this path to match the output path of your build command
           target: "" # Adjust this path to match your server directory
 
