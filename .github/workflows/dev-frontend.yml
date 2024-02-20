@@ -38,7 +38,7 @@ jobs:
         run: |
           sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "pm2 stop 0"
 
-       - name: Check if build folder exist
+      - name: Check if build folder exist
         run: |
           if [ ! -d "build" ]; then
             echo "Build folder does not exist. Exiting deployment."
