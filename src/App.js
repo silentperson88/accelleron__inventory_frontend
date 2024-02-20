@@ -66,7 +66,7 @@ export default function App() {
   }, [pathname, Session.userToken, Session.isSuperAdminViewingAdminPanel]);
 
   const getRoutes = (allRoutes) => {
-    // Filter routes as per the license for all roles except superadmin
+    // Filter routes as per the license for all roles except
     let filteredRoutes = [];
     if (
       (role !== defaultData.SUPER_ADMIN_ROLE ||
