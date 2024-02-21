@@ -71,7 +71,7 @@ export default function App() {
     if (
       (role !== defaultData.SUPER_ADMIN_ROLE ||
         (role === defaultData.SUPER_ADMIN_ROLE && isSuperAdminViewingAdminPanel)) &&
-      (licensePermissions.permissions.length > 0 ||
+      (licensePermissions.permissions?.length > 0 ||
         licensePermissions.ownerLicenseLoading === "fullfilled")
     ) {
       filteredRoutes = allRoutes.filter((route) => {
