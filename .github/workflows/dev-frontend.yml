@@ -1,5 +1,5 @@
 # frontend.yml
-name: Frontend Production deployment
+name: Frontend Production
 
 on:
   push:
