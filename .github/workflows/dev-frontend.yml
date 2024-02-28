@@ -1,10 +1,10 @@
 # frontend.yml
-name: Frontend dev deployment
+name: Frontend Production deployment
 
 on:
   push:
     branches:
-      - development
+      - production
 
 jobs:
   deploy:
@@ -16,12 +16,12 @@ jobs:
 
       - name: Stop PM2
         run: |
-          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "pm2 stop 0"
+          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "pm2 stop 1"
 
-      - name: Pull fronted development branch and generate latest build
+      - name: Pull fronted production branch and generate latest build
         run: |
-          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "cd finvibes/frontend_funding_india && git pull origin development && npm run build"
+          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "cd production/frontend_funding_india && git pull origin production && npm i && npm run build"
 
       - name: Start PM2
         run: |
-          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "cd finvibes/frontend_funding_india && pm2 restart 0"
+          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "cd production/frontend_funding_india && pm2 restart 1"
