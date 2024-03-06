@@ -292,7 +292,7 @@ function LeadUtilsCodes() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox display="flex" justifyContent="space-between" alignItems="center">
-        <PageTitle title={PageTitles.LEAD_UTILS_BANKS} />
+        <PageTitle title={PageTitles.LEAD_UTILS_CODES} />
         <MDBox display="flex" flexDirection="row">
           <CustomButton
             title={ButtonTitles.LEAD_UTILS_BANKS}

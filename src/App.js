@@ -146,15 +146,8 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(
-          (role !== defaultData.SUPER_ADMIN_ROLE &&
-            role !== defaultData.UNAUTHORIZED_ROLE &&
-            adminRoutes) ||
-            (role === defaultData.SUPER_ADMIN_ROLE &&
-              !isSuperAdminViewingAdminPanel &&
-              superAdminRoute) ||
-            (role === defaultData.SUPER_ADMIN_ROLE &&
-              isSuperAdminViewingAdminPanel &&
-              adminRoutes) ||
+          (role === defaultData.ADMIN_ROLE && adminRoutes) ||
+            (role === defaultData.SUPER_ADMIN_ROLE && superAdminRoute) ||
             (role === defaultData.UNAUTHORIZED_ROLE && authenticationRoute)
         )}
         <Route
@@ -162,15 +155,8 @@ export default function App() {
           element={
             <Navigate
               to={
-                (role !== defaultData.SUPER_ADMIN_ROLE &&
-                  role !== defaultData.UNAUTHORIZED_ROLE &&
-                  "client/mobileusers") ||
-                (role === defaultData.SUPER_ADMIN_ROLE &&
-                  !isSuperAdminViewingAdminPanel &&
-                  "admin/home") ||
-                (role === defaultData.SUPER_ADMIN_ROLE &&
-                  isSuperAdminViewingAdminPanel &&
-                  "client/mobileusers") ||
+                ((role === defaultData.SUPER_ADMIN_ROLE || role === defaultData.ADMIN_ROLE) &&
+                  "client/home") ||
                 (role === defaultData.UNAUTHORIZED_ROLE && "/authentication/sign-in")
               }
             />

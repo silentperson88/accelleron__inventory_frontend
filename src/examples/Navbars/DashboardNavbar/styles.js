@@ -28,8 +28,10 @@ function navbar(theme, ownerState) {
 
       return color;
     },
-    display: "grid",
-    alignItems: "center",
+    display: "flex",
+    alignItems: "start",
+    flexDirection: "row",
+    justifyContent: "space-between",
     borderRadius: borderRadius.xl,
     paddingRight: absolute ? pxToRem(8) : 0,
     paddingLeft: absolute ? pxToRem(16) : 0,

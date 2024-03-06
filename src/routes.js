@@ -10,8 +10,6 @@ import FormScreen from "layouts/loanForm/formScreen";
 import Bill from "layouts/billPayments";
 import LoanForm from "layouts/mobileProfile/LoanForm";
 import MobileUsers from "layouts/mobileUsers";
-import LeadUtilsBanks from "layouts/leadUtils/bank/Bank";
-import LeadUtilsCodes from "layouts/leadUtils/codes/Code";
 
 // Upcoming Layouts
 import MobileRecharge from "layouts/mobileRecharge/mobileRecharge";
@@ -19,9 +17,8 @@ import BankAccountOpening from "layouts/bankAccountOpening/bankAccountOpening";
 import CibilScore from "layouts/cibilScore/cibilScore";
 
 // Super Admin Layouts
-import Home from "layouts/superadmin/dashboard";
-import ClientProfile from "layouts/superadmin/profile";
-import LicenseApproval from "layouts/superadmin/LicenseApprovals/LicenseApproval";
+import LeadUtilsBanks from "layouts/leadUtils/bank/Bank";
+import LeadUtilsCodes from "layouts/leadUtils/codes/Code";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -133,7 +130,7 @@ const adminRoutes = [
     license: [],
     permissions: [],
     icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/client/:formType",
+    route: "/client/home/:formType",
     component: <LoanForm />,
   },
 
@@ -148,28 +145,7 @@ const adminRoutes = [
     route: "/client/mobileusers",
     component: <MobileUsers />,
   },
-  {
-    type: "collapse",
-    name: "Lead Utils Banks",
-    key: "client/lead-utils-banks",
-    parent: "",
-    license: [],
-    permissions: [],
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/client/lead-utils-banks",
-    component: <LeadUtilsBanks />,
-  },
-  {
-    type: "collapse",
-    name: "Lead Utils Codes",
-    key: "client/lead-utils-codes",
-    parent: "",
-    license: [],
-    permissions: [],
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/client/lead-utils-codes",
-    component: <LeadUtilsCodes />,
-  },
+
   {
     type: "collapse",
     name: "Mobile Recharge",
@@ -206,31 +182,28 @@ const adminRoutes = [
 ];
 
 export const superAdminRoute = [
+  ...adminRoutes,
   {
-    type: "collapse",
-    name: "Home",
-    key: "admin/home",
+    type: "pages",
+    name: "Lead Utils Banks",
+    key: "client/lead-utils-banks",
     parent: "",
-    icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/admin/home",
-    component: <Home />,
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/lead-utils-banks",
+    component: <LeadUtilsBanks />,
   },
   {
-    type: "page",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person2</Icon>,
-    route: "/admin/profile/:id",
-    component: <ClientProfile />,
-  },
-  {
-    type: "collapse",
-    name: "License Approval",
-    key: "admin/licenseapproval",
+    type: "pages",
+    name: "Lead Utils Codes",
+    key: "client/lead-utils-codes",
     parent: "",
-    icon: <Icon fontSize="small">check_circle</Icon>,
-    route: "/admin/licenseapproval",
-    component: <LicenseApproval />,
+    license: [],
+    permissions: [],
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/client/lead-utils-codes",
+    component: <LeadUtilsCodes />,
   },
 ];
 

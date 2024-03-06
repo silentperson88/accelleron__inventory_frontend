@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Material Components
-import { Divider, Grid, Box } from "@mui/material";
+import { Divider, Grid, Box, CircularProgress } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
@@ -61,7 +61,27 @@ const StyledMDBox = styled(Box)(({ theme }) => ({
 
 function index() {
   const { formType } = useParams();
+  const navigate = useNavigate();
+  const [isValidFormType, setIsValidFormType] = useState(false);
   const profileConfig = useSelector((state) => state.config);
+
+  useEffect(() => {
+    const validFormTypes = [
+      "credit-card-loan",
+      "personal-loan",
+      "home-loan",
+      "business-loan",
+      "auto-loan",
+      "education-loan",
+      "education-loan",
+    ];
+
+    if (validFormTypes.includes(formType)) {
+      setIsValidFormType(true);
+    } else {
+      navigate("/client/home");
+    }
+  }, [formType]);
 
   const [warehouseBody, setWarehouseBody] = useState({
     warehouseName: "",
@@ -85,13 +105,12 @@ function index() {
   const [warehouseErrors, setWarehouseErrors] = useState({});
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      await dispatch(profileConfigThunk());
+      if (isValidFormType) await dispatch(profileConfigThunk());
     })();
-  }, []);
+  }, [isValidFormType]);
 
   useEffect(() => {
     const warehouse = location?.state?.warehouse || {};
@@ -252,164 +271,173 @@ function index() {
 
   return (
     <DashboardLayout xPadding={0}>
-      <MDBox px={3}>
-        <DashboardNavbar />
-        <PageTitle title={formType.replaceAll("-", " ")} />
-        <Divider sx={{ marginTop: 2 }} />
-      </MDBox>
-      <Feature name={FeatureTags.LOAN_FORM}>
-        <MDBox px={3}>
-          <StyledMDBox>
-            <MDBox
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                gap: pxToRem(16),
-              }}
-            >
-              <MDTypography
-                sx={{
-                  width: "100%",
-                  color: "#667085",
-                  fontFamily: "Inter",
-                  fontSize: 20,
-                  fontStyle: "normal",
-                  fontWeight: 600,
-                  lineHeight: pxToRem(16),
-                  textTransform: "capitalize",
-                  textAlign: "center",
-                }}
-              >
-                {formType.replaceAll("-", " ")}
-              </MDTypography>
-              {profileConfig.profileConfig &&
-              Object.keys(profileConfig.profileConfig).length > 0 ? (
+      <DashboardNavbar />
+      {!isValidFormType ? (
+        <MDBox py="50vh" display="flex" justifyContent="center" alignItems="center">
+          {/* loader */}
+          <CircularProgress color="info" />
+        </MDBox>
+      ) : (
+        <>
+          <MDBox px={3}>
+            <PageTitle title={formType.replaceAll("-", " ")} />
+            <Divider sx={{ marginTop: 2 }} />
+          </MDBox>
+          <Feature name={FeatureTags.LOAN_FORM}>
+            <MDBox px={3}>
+              <StyledMDBox>
                 <MDBox
                   sx={{
                     width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
                     gap: pxToRem(16),
                   }}
                 >
-                  <Grid container spacing={2}>
-                    {profileConfig?.profileConfig.screens.properties.map((item) => {
-                      switch (item.type) {
-                        case "text":
-                        case "number":
-                        case "email":
-                          return (
-                            <Grid mb={1} item xs={12}>
-                              <FTextField
-                                label={item?.IsRequired ? `${item.title}*` : item.title}
-                                placeholder={item.hint}
-                                name={item.id}
-                                id={item.id}
-                                type={item.type}
-                                width="100%"
-                                error={Boolean(warehouseErrors?.warehouseName)}
-                                helperText={warehouseErrors?.warehouseName}
-                                value={warehouseBody?.warehouseName}
-                                handleChange={handleChange}
-                              />
-                            </Grid>
-                          );
-                        case "date":
-                          return (
-                            <Grid item xs={12}>
-                              <ReactDatePicker
-                                selected=""
-                                onChange={(date) =>
-                                  handleChange(
-                                    item.id,
-                                    moment(date)
-                                      .format(defaultData.DATABASE_24_HOURS_FORMAT)
-                                      .toString(),
-                                    item.questionId ? item.questionId : item.id
-                                  )
-                                }
-                                customInput={
-                                  <DateTime
-                                    item={item}
+                  <MDTypography
+                    sx={{
+                      width: "100%",
+                      color: "#667085",
+                      fontFamily: "Inter",
+                      fontSize: 20,
+                      fontStyle: "normal",
+                      fontWeight: 600,
+                      lineHeight: pxToRem(16),
+                      textTransform: "capitalize",
+                      textAlign: "center",
+                    }}
+                  >
+                    {formType.replaceAll("-", " ")}
+                  </MDTypography>
+                  {profileConfig.profileConfig &&
+                  Object.keys(profileConfig.profileConfig).length > 0 ? (
+                    <MDBox
+                      sx={{
+                        width: "100%",
+                        gap: pxToRem(16),
+                      }}
+                    >
+                      <Grid container spacing={2}>
+                        {profileConfig?.profileConfig.screens.properties.map((item) => {
+                          switch (item.type) {
+                            case "text":
+                            case "number":
+                            case "email":
+                              return (
+                                <Grid mb={1} item xs={12}>
+                                  <FTextField
+                                    label={item?.IsRequired ? `${item.title}*` : item.title}
+                                    placeholder={item.hint}
+                                    name={item.id}
+                                    id={item.id}
+                                    type={item.type}
+                                    width="100%"
                                     error={Boolean(warehouseErrors?.warehouseName)}
-                                    label={`${item?.title}${item?.IsRequired ? "*" : ""}`}
-                                    width={344}
+                                    helperText={warehouseErrors?.warehouseName}
+                                    value={warehouseBody?.warehouseName}
+                                    handleChange={handleChange}
                                   />
-                                }
-                                dateFormat={defaultData.REACTDATETIMEPICKER_24_HOURS_FORMAT}
-                              />
-                            </Grid>
-                          );
+                                </Grid>
+                              );
+                            case "date":
+                              return (
+                                <Grid item xs={12}>
+                                  <ReactDatePicker
+                                    selected=""
+                                    onChange={(date) =>
+                                      handleChange(
+                                        item.id,
+                                        moment(date)
+                                          .format(defaultData.DATABASE_24_HOURS_FORMAT)
+                                          .toString(),
+                                        item.questionId ? item.questionId : item.id
+                                      )
+                                    }
+                                    customInput={
+                                      <DateTime
+                                        item={item}
+                                        error={Boolean(warehouseErrors?.warehouseName)}
+                                        label={`${item?.title}${item?.IsRequired ? "*" : ""}`}
+                                        width={344}
+                                      />
+                                    }
+                                    dateFormat={defaultData.REACTDATETIMEPICKER_24_HOURS_FORMAT}
+                                  />
+                                </Grid>
+                              );
 
-                        case "dropdown":
-                          return (
-                            <Grid mb={1} item xs={12}>
-                              <ConfigDropdown
-                                label={item?.IsRequired ? `${item.title}*` : item.title}
-                                name={item?.id}
-                                id={item?.id}
-                                value=""
-                                handleChange={handleChange}
-                                menu={item.options}
-                                error={Boolean(warehouseErrors?.warehouseName)}
-                                helperText={warehouseErrors?.warehouseName}
-                                minWidth={pxToRem(565)}
-                              />
-                            </Grid>
-                          );
-                        default:
-                          return null;
-                      }
-                    })}
-                  </Grid>
+                            case "dropdown":
+                              return (
+                                <Grid mb={1} item xs={12}>
+                                  <ConfigDropdown
+                                    label={item?.IsRequired ? `${item.title}*` : item.title}
+                                    name={item?.id}
+                                    id={item?.id}
+                                    value=""
+                                    handleChange={handleChange}
+                                    menu={item.options}
+                                    error={Boolean(warehouseErrors?.warehouseName)}
+                                    helperText={warehouseErrors?.warehouseName}
+                                    minWidth={pxToRem(565)}
+                                  />
+                                </Grid>
+                              );
+                            default:
+                              return null;
+                          }
+                        })}
+                      </Grid>
+                    </MDBox>
+                  ) : (
+                    <Grid container spacing={2}>
+                      <MDBox py={5} display="flex" justifyContent="center" alignItems="center">
+                        {Icons.LOADING2}
+                      </MDBox>
+                    </Grid>
+                  )}
                 </MDBox>
-              ) : (
-                <Grid container spacing={2}>
-                  <MDBox py={5} display="flex" justifyContent="center" alignItems="center">
-                    {Icons.LOADING2}
-                  </MDBox>
-                </Grid>
-              )}
-            </MDBox>
-          </StyledMDBox>
+              </StyledMDBox>
 
-          <MDBox
-            sx={{
-              marginTop: 3,
-              backgroundColor: "#fff",
-              height: "71px",
-              padding: "12px 32px 16px 32px",
-              border: "1px solid #E0E6F5",
-            }}
-          >
-            <MDBox sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-              {updateWarehouse && (
-                <MDButton
-                  variant="outlined"
-                  color="info"
-                  style={{ textTransform: "none", boxShadow: "none" }}
-                  sx={{ marginRight: "16px" }}
-                  onClick={handleCancel}
-                >
-                  {ButtonTitles.CANCEL}
-                </MDButton>
-              )}
-              <MDButton
-                variant="contained"
-                color="info"
-                style={{ textTransform: "none", boxShadow: "none" }}
-                onClick={handleAction}
-                disabled
+              <MDBox
+                sx={{
+                  marginTop: 3,
+                  backgroundColor: "#fff",
+                  height: "71px",
+                  padding: "12px 32px 16px 32px",
+                  border: "1px solid #E0E6F5",
+                }}
               >
-                {(!loading && !updateWarehouse && ButtonTitles.SUBMIT) ||
-                  (loading && !updateWarehouse && ButtonTitles.SUBMIT_LOADING) ||
-                  (!loading && updateWarehouse && ButtonTitles.UPDATE) ||
-                  (loading && updateWarehouse && ButtonTitles.UPDATE_LOADING)}
-              </MDButton>
+                <MDBox sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+                  {updateWarehouse && (
+                    <MDButton
+                      variant="outlined"
+                      color="info"
+                      style={{ textTransform: "none", boxShadow: "none" }}
+                      sx={{ marginRight: "16px" }}
+                      onClick={handleCancel}
+                    >
+                      {ButtonTitles.CANCEL}
+                    </MDButton>
+                  )}
+                  <MDButton
+                    variant="contained"
+                    color="info"
+                    style={{ textTransform: "none", boxShadow: "none" }}
+                    onClick={handleAction}
+                    disabled
+                  >
+                    {(!loading && !updateWarehouse && ButtonTitles.SUBMIT) ||
+                      (loading && !updateWarehouse && ButtonTitles.SUBMIT_LOADING) ||
+                      (!loading && updateWarehouse && ButtonTitles.UPDATE) ||
+                      (loading && updateWarehouse && ButtonTitles.UPDATE_LOADING)}
+                  </MDButton>
+                </MDBox>
+              </MDBox>
             </MDBox>
-          </MDBox>
-        </MDBox>
-      </Feature>
+          </Feature>
+        </>
+      )}
     </DashboardLayout>
   );
 }
