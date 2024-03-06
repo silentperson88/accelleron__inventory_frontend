@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 function ProfileForm() {
   const navigate = useNavigate();
   const handleLoanFormRouting = (type) => {
-    navigate(`/client/${type.toLowerCase().replaceAll(" ", "-")}`);
+    navigate(`/client/home/${type.toLowerCase().replaceAll(" ", "-")}`);
   };
   return (
     <DashboardLayout>
