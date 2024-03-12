@@ -32,6 +32,17 @@ import { useMaterialUIController, setTransparentNavbar, setMiniSidenav } from "c
 import jwtDecode from "jwt-decode";
 import Sessions from "utils/Sessions";
 import { defaultData } from "utils/Constants";
+import { Settings } from "@mui/icons-material";
+import { MenuItem } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+const options = [
+  {
+    name: "Banks",
+    link: "/client/lead-utils-banks",
+  },
+  { name: "Codes", link: "/client/lead-utils-codes" },
+];
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -39,6 +50,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { transparentNavbar, fixedNavbar, darkMode, miniSidenav } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const [role, setRole] = useState("");
+  const navigate = useNavigate();
+  const ITEM_HEIGHT = 48;
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = (url) => {
+    navigate(url);
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     if (Sessions.userToken) {
@@ -120,6 +143,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
         >
           <Breadcrumbs icon="home_outlined" light={light} />
         </MDBox>
+
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox color={light ? "white" : "inherit"} sx={{ marginRight: -2 }}>
@@ -142,6 +166,42 @@ function DashboardNavbar({ absolute, light, isMini }) {
           </MDBox>
         )}
       </Toolbar>
+      {role === defaultData.SUPER_ADMIN_ROLE && (
+        <MDBox sx={{ width: "auto" }}>
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? "long-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={handleClick}
+            sx={{ width: "fit-content" }}
+          >
+            <Settings />
+          </IconButton>
+          <Menu
+            id="long-menu"
+            MenuListProps={{
+              "aria-labelledby": "long-button",
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              style: {
+                maxHeight: ITEM_HEIGHT * 4.5,
+                width: "20ch",
+              },
+            }}
+          >
+            {options.map((option) => (
+              <MenuItem key={option.name} onClick={() => handleClose(option.link)}>
+                {option.name}
+              </MenuItem>
+            ))}
+          </Menu>
+        </MDBox>
+      )}
     </AppBar>
   );
 }
