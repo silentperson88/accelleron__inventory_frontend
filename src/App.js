@@ -131,7 +131,7 @@ export default function App() {
           <>
             <Sidenav
               color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+              brand={(transparentSidenav && !darkMode) || whiteSidenav ? accelleronIndustriesLogo : accelleronIndustriesLogo}
               brandName="Material Dashboard 2"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
@@ -155,7 +155,7 @@ export default function App() {
             color={sidenavColor}
             brand={
               (transparentSidenav && !darkMode) || whiteSidenav
-                ? brandDark
+                ? accelleronIndustriesLogo
                 : accelleronIndustriesLogo
             }
             brandName="Material Dashboard 2"
