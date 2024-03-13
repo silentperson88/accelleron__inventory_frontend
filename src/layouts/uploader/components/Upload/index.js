@@ -1,33 +1,10 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
-
-// @mui material components
-import Icon from "@mui/material/Icon";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function upload({ setRes }) {
   const [controller] = useMaterialUIController();
@@ -46,22 +23,17 @@ function upload({ setRes }) {
     }
 
     const formData = new FormData();
-    console.log(file);
     formData.append("uploadfile", file);
 
     try {
-      const response = await fetch(
-        `${url}/users/upload-file`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${url}/users/upload-file`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (!response.ok) {
         throw new Error("please upload valid excel file");
       }
-      console.log(response);
 
       setRes(true);
     } catch (error) {
@@ -69,17 +41,15 @@ function upload({ setRes }) {
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile !== null) {
-      // setFile(selectedFile);
       await onSubmitHandle(selectedFile);
-    };
+    }
 
     return null;
-
   };
 
   return (
@@ -110,4 +80,4 @@ function upload({ setRes }) {
   );
 }
 
-export default upload
+export default upload;

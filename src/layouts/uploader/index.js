@@ -106,9 +106,6 @@ function Uploader() {
     }
   }, [res]);
 
-  console.log(data)
-  console.log(header)
-
   return (
     <DashboardLayout>
       <DashboardNavbar absolute isMini />
