@@ -21,10 +21,6 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
-
-// Material Dashboard 2 React components
-import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
@@ -50,8 +46,6 @@ import routes from "routes";
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
-import brandWhite from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
 import accelleronIndustriesLogo from "assets/images/industry/accelleron-industries-logo.svg";
 
 export default function App() {
@@ -131,7 +125,11 @@ export default function App() {
           <>
             <Sidenav
               color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? accelleronIndustriesLogo : accelleronIndustriesLogo}
+              brand={
+                (transparentSidenav && !darkMode) || whiteSidenav
+                  ? accelleronIndustriesLogo
+                  : accelleronIndustriesLogo
+              }
               brandName="Material Dashboard 2"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}

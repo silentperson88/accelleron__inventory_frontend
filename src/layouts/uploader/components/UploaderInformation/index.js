@@ -23,7 +23,7 @@ import MDTypography from "components/MDTypography";
 // Billing page components
 import Upload from "layouts/uploader/components/Upload";
 
-function UploaderInformation() {
+function uploaderInformation({ setRes }) {
   return (
     <Card id="delete-account">
       <MDBox pt={3} px={2}>
@@ -33,11 +33,11 @@ function UploaderInformation() {
       </MDBox>
       <MDBox pt={2} pb={2} px={2} mx={"auto"}>
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
-          <Upload />
+          <Upload setRes={setRes} />
         </MDBox>
       </MDBox>
     </Card>
   );
 }
 
-export default UploaderInformation;
+export default uploaderInformation;
