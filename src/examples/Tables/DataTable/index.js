@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useMemo, useEffect, useState } from "react";
 
 // prop-types is a library for typechecking of props
@@ -48,7 +33,7 @@ function DataTable({
   isSorted,
   noEndBorder,
 }) {
-  const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
+  const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 25;
   const entries = entriesPerPage.entries
     ? entriesPerPage.entries.map((el) => el.toString())
     : ["5", "10", "15", "20", "25"];

@@ -46,43 +46,33 @@ function Uploader() {
   const [data, setData] = useState([]);
   const [header, setHeader] = useState([]);
   const { columns, rows } = authorsTableData(data);
-
   const url = process.env.REACT_APP_BACKEND_URL;
-
   const fetchData = async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`${url}/users/data`);
+      const response = await fetch(`${url}/data`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
 
-      const { success, artist } = await response.json();
+      const { message, data: storageData } = await response.json();
 
-      if (!success) {
+      if (!message) {
         throw new Error("Failed to fetch data");
       }
 
-      console.log(artist.length === 0);
-
-      if (artist.length === 0) {
+      if (storageData.length === 0) {
         setHeader([]);
         setData([]);
-      };
+      }
 
-      const requiredData = artist.map(
-        (art, index) => ({
-          No: index + 1,
-          _id: art?._id,
-          speciality: art?.speciality,
-          about: art?.about,
-          name: art?.name,
-          email: art?.email,
-        })
-      );
+      const requiredData = storageData.map((store, index) => ({
+        no: index + 1,
+        ...store,
+      }));
 
       if (requiredData.length > 0) {
         const headers = Object.keys(requiredData[0]);
@@ -102,7 +92,7 @@ function Uploader() {
 
   useEffect(() => {
     if (res) {
-      fetchData()
+      fetchData();
     }
   }, [res]);
 
@@ -135,7 +125,7 @@ function Uploader() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Excel Sheet
+                  Inventory Management
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>

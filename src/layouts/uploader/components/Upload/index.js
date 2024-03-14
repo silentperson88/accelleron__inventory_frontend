@@ -26,7 +26,7 @@ function upload({ setRes }) {
     formData.append("uploadfile", file);
 
     try {
-      const response = await fetch(`${url}/users/upload-file`, {
+      const response = await fetch(`${url}/upload-file`, {
         method: "POST",
         body: formData,
       });
