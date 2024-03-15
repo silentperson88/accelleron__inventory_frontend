@@ -22,6 +22,7 @@ import { openSnackbar } from "redux/Slice/Notification";
 import perosnalLoan from "assets/images/icons/personal-loan.png";
 import carLoan from "assets/images/icons/car-loan.png";
 import homeLoan from "assets/images/icons/home-loan.png";
+import education from "assets/images/icons/education.png";
 import creditCardLoan from "assets/images/icons/credit-card.png";
 import bussinessLoan from "assets/images/icons/loan-against-property.png";
 
@@ -54,6 +55,10 @@ function ProfileForm() {
     {
       id: defaultData.HOME_LOAN_SCREEN_ID,
       logo: homeLoan,
+    },
+    {
+      id: defaultData.EDUCATION_LOAN_SCREEN_ID,
+      logo: education,
     },
   ];
   const dispatch = useDispatch();
@@ -88,6 +93,7 @@ function ProfileForm() {
       }
     })();
   }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />

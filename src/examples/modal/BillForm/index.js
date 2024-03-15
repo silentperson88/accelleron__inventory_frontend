@@ -42,8 +42,12 @@ function index({ open, handleClose, title, actionButton = "Submit" }) {
   };
 
   const handlePay = async () => {
+    const body = {
+      canumber: billBody.canumber,
+      operator: parseInt(billBody?.operator, 10),
+    };
     if (validate()) {
-      const res = await dispatch(payBill(billBody));
+      const res = await dispatch(payBill(body));
       if (res.payload.status === 200) {
         handleClose();
         dispatch(

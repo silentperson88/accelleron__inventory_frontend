@@ -429,7 +429,7 @@ function safetyCardForm({
                         }}
                       >
                         {item.type !== "termsAndConditions" ? (
-                          `${item.title} ${item.IsRequired && "*"}`
+                          `${item.title} ${item.IsRequired ? "*" : ""}`
                         ) : (
                           <MDBox>
                             <MDTypography

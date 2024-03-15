@@ -38,6 +38,12 @@ const initialState = {
       index: 4,
       screensInfo: {},
     },
+    {
+      name: "Education Loan",
+      id: defaultData.EDUCATION_LOAN_SCREEN_ID,
+      index: 5,
+      screensInfo: {},
+    },
   ],
 };
 
@@ -55,6 +61,7 @@ export const configSlice = createSlice({
       state.loanConfig[0] = action.payload.data;
       action.payload.data.data.screens.forEach((element, sIndex) => {
         const screenIndex = state.screens.findIndex((screen) => screen.id === element.screenId);
+        console.log(screenIndex, "screenIndex");
         if (screenIndex !== -1) {
           state.screens[screenIndex].index = sIndex;
           state.screens[screenIndex].screensInfo = element;
@@ -63,6 +70,7 @@ export const configSlice = createSlice({
       state.refetchConfig = false;
     },
     [loanConfigThunk.rejected]: (state) => {
+      console.log("rejected");
       state.loading = Constants.REJECTED;
     },
     [resetStateThunk.fulfilled]: (state) => {

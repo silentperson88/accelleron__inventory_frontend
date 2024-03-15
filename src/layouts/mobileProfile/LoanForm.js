@@ -67,7 +67,7 @@ function index() {
 
   useEffect(() => {
     const validFormTypes = [
-      "credit-card-loan",
+      "credit-card",
       "personal-loan",
       "home-loan",
       "business-loan",

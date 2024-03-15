@@ -71,7 +71,7 @@ function ProfileForm() {
               handleAction={handleBillForm}
             />
           </Grid>
-          <Grid item xs={12} md={6} mb={2} px={2}>
+          {/* <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
               color="warning"
               type={PageTitles.RECHARGE}
@@ -80,7 +80,7 @@ function ProfileForm() {
               expires=""
               handleAction={handleBillForm}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6} mb={2} px={2}>
             <MasterCard
               color="error"

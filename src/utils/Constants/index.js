@@ -226,7 +226,7 @@ export const PageTitles = {
   MOBILE_USERS: "Mobile Users",
   LOAN_DASHBOARD: "Loans",
   PERSONAL_LOAN: "Personal Loan",
-  CREDIT_CARD_LOAN: "Credit Card Loan",
+  CREDIT_CARD_LOAN: "Credit Cards",
   HOME_LOAN: "Home Loan",
   BUSINESS_LOAN: "Business Loan",
   AUTO_LOAN: "Auto Loan",
@@ -615,6 +615,7 @@ export const defaultData = {
   BUSINESS_LOAN_SCREEN_ID: "businessLoan_04",
   CAR_LOAN_SCREEN_ID: "carLoan_03",
   CREDIT_CARD_SCREEN_ID: "creditCard_05",
+  EDUCATION_LOAN_SCREEN_ID: "educationLoan_06",
 };
 
 export const countryList = Object.values(countries.countries).map((country) => country.name);
