@@ -1,5 +1,5 @@
 # frontend.yml
-name: Frontend dev deployment
+name: Frontend development
 
 on:
   push:
@@ -18,9 +18,9 @@ jobs:
         run: |
           sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "pm2 stop 0"
 
-      - name: Pull fronted development branch and generate latest build
+      - name: Pull fronted production branch and generate latest build
         run: |
-          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "cd finvibes/frontend_funding_india && git pull origin development && npm run build"
+          sshpass -p "${{ secrets.DROPLET_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_IP }} "cd finvibes/frontend_funding_india && git pull origin production && npm i && npm run build"
 
       - name: Start PM2
         run: |
