@@ -131,7 +131,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       variant="permanent"
       ownerState={{ transparentSidenav, whiteSidenav, miniSidenav, darkMode }}
     >
-      <MDBox pt={3} pb={1} px={4} textAlign="center">
+      <MDBox
+        pt={3}
+        pb={1}
+        px={4}
+        textAlign="center"
+        sx={{
+          backgound: "white",
+        }}
+      >
         <MDBox
           display={{ xs: "block", xl: "none" }}
           position="absolute"
@@ -139,22 +147,23 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           right={0}
           p={1.625}
           onClick={closeSidenav}
-          sx={{ cursor: "pointer" }}
+          sx={{
+            cursor: "pointer",
+          }}
         >
           <MDTypography variant="h6" color="secondary">
             <Icon sx={{ fontWeight: "bold" }}>close</Icon>
           </MDTypography>
         </MDBox>
-        <MDBox component={NavLink} to="/" display="flex" alignItems="center">
-          {brand && <MDBox component="img" src={brand} alt="Brand" width="2rem" />}
-          <MDBox
-            width={!brandName && "100%"}
-            sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
-          >
-            <MDTypography component="h6" variant="button" fontWeight="medium" color={textColor}>
+        <MDBox
+          width={!brandName && "100%"}
+          // sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
+          sx={{ backgound: "white" }}
+        >
+          {brand && <MDBox component="img" src={brand} alt="Brand" width="11rem" />}
+          {/* <MDTypography component="h6" variant="button" fontWeight="medium" color={textColor}>
               {brandName}
-            </MDTypography>
-          </MDBox>
+            </MDTypography> */}
         </MDBox>
       </MDBox>
       <Divider
@@ -164,19 +173,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         }
       />
       <List>{renderRoutes}</List>
-      <MDBox p={2} mt="auto">
-        <MDButton
-          component="a"
-          href="https://www.creative-tim.com/product/material-dashboard-pro-react"
-          target="_blank"
-          rel="noreferrer"
-          variant="gradient"
-          color={sidenavColor}
-          fullWidth
-        >
-          upgrade to pro
-        </MDButton>
-      </MDBox>
     </SidenavRoot>
   );
 }
