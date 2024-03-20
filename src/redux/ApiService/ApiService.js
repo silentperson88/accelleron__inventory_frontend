@@ -5,7 +5,7 @@ import Sessions from "utils/Sessions";
 
 // Axios API Service
 const ReynardBackendApiService = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: "http://localhost:8000/api",
   withCredentials: false,
   headers: {
     Accept: "application/json",

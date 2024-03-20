@@ -7,24 +7,12 @@ import App from "App";
 import { MaterialUIControllerProvider } from "context";
 import { Provider } from "react-redux";
 import Store from "redux/Store/Store";
-import { FlagsProvider } from "flagged";
-import { FeatureTags } from "utils/Constants";
 
 ReactDOM.render(
   <Provider store={Store}>
     <BrowserRouter>
       <MaterialUIControllerProvider>
-        <FlagsProvider
-          features={{
-            [FeatureTags.SHIFT_DETAILS]: process.env.REACT_APP_DAL_FF === "true",
-            [FeatureTags.SETUP_REPORT]: process.env.REACT_APP_SETUP_REPORT === "true",
-            [FeatureTags.ROLE_MANAGEMENT]: process.env.REACT_APP_ROLE_MANAGEMENT === "true",
-            [FeatureTags.SETUP_EQUIPMENT]: process.env.REACT_APP_SETUP_EQUIPMENT === "true",
-            [FeatureTags.LOAN_FORM]: process.env.REACT_APP_SETUP_LOAN_FORM === "true",
-          }}
-        >
-          <App />
-        </FlagsProvider>
+        <App />
       </MaterialUIControllerProvider>
     </BrowserRouter>
   </Provider>,

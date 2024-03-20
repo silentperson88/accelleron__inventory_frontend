@@ -23,10 +23,7 @@ import DataTableHeadCell from "examples/Tables/DataTable/DataTableHeadCell";
 import DataTableBodyCell from "examples/Tables/DataTable/DataTableBodyCell";
 import { Pagination, TableCell } from "@mui/material";
 
-import Constants, { Icons, defaultData } from "utils/Constants";
-import { useSelector } from "react-redux";
-import Session from "utils/Sessions";
-import jwtDecode from "jwt-decode";
+import Constants, { Icons } from "utils/Constants";
 
 function DataTable({
   entriesPerPage,
@@ -36,7 +33,6 @@ function DataTable({
   isSorted,
   noEndBorder,
   loading,
-  licenseRequired,
   // currentPage, handleTablePagination, handleCurrentPage are use when need data size is more
   // Use this parameter to retrieve additional data when a user visits the last page
   currentPage,
@@ -47,11 +43,10 @@ function DataTable({
   extraContent,
 }) {
   const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
+  const [status, setStatus] = useState("pending");
   const entries = entriesPerPage.entries
     ? entriesPerPage.entries.map((el) => el.toString())
     : ["25"];
-  const [status, setStatus] = useState("pending");
-  const ConfigData = useSelector((state) => state.config);
   const columns = useMemo(() => table.columns, [table]);
   const data = useMemo(() => table.rows, [table]);
 
@@ -83,39 +78,21 @@ function DataTable({
 
   // update the status on role change, when superadmin login as admin and data changes
   useEffect(() => {
-    const token = jwtDecode(Session.userToken);
-    const { role } = token;
-
     // for superadmin panel
-    if (
-      (role === defaultData.SUPER_ADMIN_ROLE && !Session.isSuperAdminViewingAdminPanel) ||
-      !licenseRequired
-    ) {
-      if (loading === "pending") setStatus("pending");
-      else if (ConfigData.loading === "rejected" || loading === "rejected") setStatus("rejected");
-      else if (loading === "fullfilled" && rows.length > 0 && pageOptions.length > 0)
-        setStatus("fullfilled");
-      else if (loading === "fullfilled" && rows.length === 0 && pageOptions.length === 0)
-        setStatus("noData");
-    }
+
     // for admin panel
-    else if (ConfigData.loading === "pending" || loading === "pending") setStatus("pending");
-    else if (ConfigData.loading === "rejected" || loading === "rejected") setStatus("rejected");
-    else if (
-      ConfigData.loading === "fulfilled" &&
-      loading === "fullfilled" &&
-      rows.length > 0 &&
-      pageOptions.length > 0
-    )
+    console.log("loading", loading, rows.length, pageOptions.length);
+    if (loading === "pending") setStatus("pending");
+    else if (loading === "rejected") setStatus("rejected");
+    else if (loading === "fullfilled" && rows.length > 0 && pageOptions.length > 0)
       setStatus("fullfilled");
-    else if (
-      ConfigData.loading === "fulfilled" &&
-      loading === "fullfilled" &&
-      rows.length === 0 &&
-      pageOptions.length === 0
-    )
+    else if (loading === "fullfilled" && rows.length === 0 && pageOptions.length === 0)
       setStatus("noData");
-  }, [Session.userToken, Session.isSuperAdminViewingAdminPanel, ConfigData.loading, table]);
+  }, [table]);
+
+  useEffect(() => {
+    console.log("Status", status);
+  }, [status]);
 
   // set current page to last page when the current page has no data
   // Works when some data is deleted from the last page

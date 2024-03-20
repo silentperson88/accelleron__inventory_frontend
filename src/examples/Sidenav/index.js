@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // react-router-dom components
-import { useLocation, NavLink, useNavigate } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
-
-// Sessions
-import Session from "utils/Sessions";
 
 // @mui material components
 import List from "@mui/material/List";
@@ -26,7 +23,7 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 
 // Logo
-import logo from "assets/images/brand.png";
+import logo from "assets/images/logo.svg";
 
 // Material Dashboard 2 React context
 import {
@@ -36,43 +33,15 @@ import {
   setWhiteSidenav,
 } from "context";
 import IconButton from "@mui/material/IconButton";
-import Confirmation from "examples/modal/Confirmation/Confirmation";
-import { useDispatch, useSelector } from "react-redux";
-import { accountLicenseThunk } from "redux/Thunks/License";
-import Constants, { defaultData } from "utils/Constants";
-import { resetStateThunk } from "redux/Thunks/Authentication";
 import pxToRem from "assets/theme/functions/pxToRem";
 
 function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, transparentNavbar, light } =
     controller;
-  const [permission, setPermission] = useState([]);
-  const [openLogout, setOpenLogout] = useState(false);
-  const [switchAccount, setSwitchAccount] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
-  const licensePermissions = useSelector((state) => state.License);
-  const dispatchThunk = useDispatch();
 
-  const handleOpenLogout = () => {
-    setOpenLogout(true);
-  };
-
-  // Logout user
-  const handleLogout = async () => {
-    Session.setClear();
-    navigate("/authentication/sign-in", { replace: true });
-    await dispatchThunk(resetStateThunk());
-  };
-
-  // Switch from admin account to superadmin account
-  const handleAccountSwitch = () => {
-    setSwitchAccount(false);
-    Session.setLogoutSuperadminAsAdmin();
-    navigate("admin/home", { replace: true });
-  };
   const iconsStyle = ({ palette: { white, text }, functions: { rgba } }) => ({
     color: () => {
       let colorValue = light || darkMode ? white.main : white.main;
@@ -91,24 +60,6 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
   } else if (whiteSidenav && darkMode) {
     textColor = "inherit";
   }
-
-  useEffect(() => {
-    const fetchAccountLicenses = async () => {
-      const res = await dispatchThunk(accountLicenseThunk());
-      setPermission(res.payload.data);
-    };
-
-    if (role !== defaultData.SUPER_ADMIN_ROLE) {
-      fetchAccountLicenses();
-    } else if (
-      Session.isSuperAdminViewingAdminPanel &&
-      licensePermissions.permissions.length === 0
-    ) {
-      fetchAccountLicenses();
-    } else {
-      setPermission(licensePermissions.permissions);
-    }
-  }, [role, Session.isSuperAdminViewingAdminPanel]);
 
   const handleCloseMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   useEffect(() => {
@@ -141,58 +92,6 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
     parent,
     license
   ) => {
-    if (role === defaultData.SUPER_ADMIN_ROLE && !Session.isSuperAdminViewingAdminPanel) {
-      return (
-        <NavLink key={key} to={route}>
-          <SidenavCollapse name={name} icon={icon} active={key === collapseName} parent={parent} />
-        </NavLink>
-      );
-    }
-
-    // Submenu like shift details, report etc...
-    if (
-      parent !== "" &&
-      permission.some((per) =>
-        permissions.some((per2) => per2.toLowerCase() === per.permission.name.toLowerCase())
-      )
-    ) {
-      return (
-        <NavLink key={key} to={route}>
-          <SidenavCollapse name={name} icon={icon} active={key === collapseName} parent={parent} />
-        </NavLink>
-      );
-    }
-    if (
-      extraRoute.length === 0 &&
-      permission?.some((per) =>
-        license?.some((lic) => lic.toLowerCase() === per.licence.name.toLowerCase())
-      )
-    ) {
-      return (
-        <NavLink key={key} to={route}>
-          <SidenavCollapse name={name} icon={icon} active={key === collapseName} parent={parent} />
-        </NavLink>
-      );
-    }
-
-    if (
-      extraRoute.length > 0 &&
-      permission?.some((per) =>
-        license?.some((lic) => lic.toLowerCase() === per.licence.name.toLowerCase())
-      )
-    ) {
-      return (
-        <NavLink
-          key={key}
-          to={`${route}${extraRoute.find((rou) =>
-            permission?.some((per) => per.permission.name.toLowerCase() === rou)
-          )}`}
-        >
-          <SidenavCollapse name={name} icon={icon} active={key === collapseName} parent={parent} />
-        </NavLink>
-      );
-    }
-
     if (license?.length === 0 && permissions?.length === 0) {
       return (
         <NavLink key={key} to={route}>
@@ -326,36 +225,6 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
             {miniSidenav ? "keyboard_double_arrow_right" : "keyboard_double_arrow_left"}
           </Icon>
         </IconButton>
-        {Session.isSuperAdminViewingAdminPanel && (
-          <MDBox onClick={() => setSwitchAccount(true)}>
-            <SidenavCollapse name="Switch To Super Admin" icon="switch_account" parent="" />
-          </MDBox>
-        )}
-        <MDBox onClick={handleOpenLogout}>
-          <SidenavCollapse name="Logout" icon="power_settings_new" parent="" />
-        </MDBox>
-
-        {/* Logout confirmation modal for user logging out */}
-        {openLogout && (
-          <Confirmation
-            open={openLogout}
-            title={Constants.USER_LOGOUT_TITTLE}
-            message={Constants.LOGOUT_MESSAGE}
-            handleClose={() => setOpenLogout(false)}
-            handleAction={handleLogout}
-          />
-        )}
-
-        {/* Switch account confirmation modal for superadmin logging out as an admin */}
-        {switchAccount && (
-          <Confirmation
-            open={switchAccount}
-            title={Constants.SWITCH_ACCOUNT_TITTLE}
-            message={Constants.SWITCH_SUPERADMIN_ACCOUNT_TO_ADMIN_MESSAGE}
-            handleClose={() => setSwitchAccount(false)}
-            handleAction={handleAccountSwitch}
-          />
-        )}
       </MDBox>
     </SidenavRoot>
   );

@@ -14,13 +14,13 @@ import { useMaterialUIController, setLayout } from "context";
 import { Alert, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import MDTypography from "components/MDTypography";
-import { closeSnackBar } from "redux/Slice/Notification";
+import { closeSnackBar } from "redux/Slice/Notification.slice";
 
 function DashboardLayout({ xPadding, children }) {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav } = controller;
   const { pathname } = useLocation();
-  const Notification = useSelector((state) => state.Notification);
+  const Notification = useSelector((state) => state.notification);
   const dispatchAction = useDispatch();
 
   useEffect(() => {
