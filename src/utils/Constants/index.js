@@ -2,6 +2,12 @@ import { CircularProgress } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import ReplayOutlinedIcon from "@mui/icons-material/ReplayOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 //  Messages or Hard Coded Data
 const TextMessage = {
@@ -21,16 +27,39 @@ const TextMessage = {
   // Upload Excel File
   UPLOAD_SUCCESS_MESSAGE: "File uploaded successfully",
   UPLOAD_ERROR_MESSAGE: "Error uploading file",
+
+  // Status
+  IN_USE: "in-use",
+  AVAILABLE: "available",
+  IN_REPAIR: "in-repair",
+  DAMAGED: "damaged",
+
+  // Rack and Pallet Management
+  RACK_CREATED_SUCCESSFULLY: "Rack created successfully",
+  RACK_UPDATED_SUCCESSFULLY: "Rack updated successfully",
+  RACK_DELETED_SUCCESSFULLY: "Rack deleted successfully",
+  PALLET_CREATED_SUCCESSFULLY: "Pallet created successfully",
+  PALLET_UPDATED_SUCCESSFULLY: "Pallet updated successfully",
+  PALLET_DELETED_SUCCESSFULLY: "Pallet deleted successfully",
 };
 
 // Page titles
 export const PageTitles = {
   INVENTORY: "Inventory",
+  RACK_PALLET_MANAGEMENT: "Rack & Pallet Management",
 };
 
 // Button titles
 export const ButtonTitles = {
   RESET_FILTER: "Reset Filter",
+  SUBMIT: "Submit",
+  SUBMIT_LOADING: "Submitting...",
+  UPLOAD: "Upload",
+  UPLOAD_LOADING: "Uploading...",
+
+  // Rack & Pallet Management
+  NEW_RACK: "Rack",
+  NEW_PALLET: "Pallet",
 };
 
 // Card Titles
@@ -68,10 +97,25 @@ export const Icons = {
   SEACRH: <SearchIcon fontSize="medium" sx={{ cursor: "pointer", color: "#667085" }} />,
   UPLOAD: <FileUploadOutlinedIcon fontSize="medium" sx={{ cursor: "pointer" }} />,
   RESET_FILTER: <RestartAltOutlinedIcon fontSize="medium" sx={{ cursor: "pointer" }} />,
+  NEW: <AddOutlinedIcon fontSize="medium" sx={{ cursor: "pointer" }} />,
+  RELOAD: <ReplayOutlinedIcon fontSize="medium" sx={{ cursor: "pointer" }} />,
+  CROSS: <CloseOutlinedIcon fontSize="medium" sx={{ cursor: "pointer" }} />,
+  VIEW: <VisibilityOutlinedIcon fontSize="medium" sx={{ cursor: "pointer", color: "#475467" }} />,
+  EDIT: (
+    <ModeEditOutlineOutlinedIcon fontSize="medium" sx={{ cursor: "pointer", color: "#475467" }} />
+  ),
+  DELETE: (
+    <DeleteOutlineOutlinedIcon fontSize="medium" sx={{ cursor: "pointer", color: "#475467" }} />
+  ),
 };
 
 // Modal Content
-export const ModalContent = {};
+export const ModalContent = {
+  NEW_RACK: "New Rack",
+  RACK_STATUS: "Rack Status",
+  RACK_ACTIVE_STATUS_MESSAGE: "Are you sure you want to activate this rack?",
+  ROLE_INACTIVE_STATUS_MESSAGE: "Are you sure you want to deactivate this rack?",
+};
 
 export const defaultData = {
   DEFAULT_DATA_IDENTIFIER: "default",

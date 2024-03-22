@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // Material components
 import MDBox from "components/MDBox";
-import { Autocomplete, Card, Divider, Grid } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Card, Divider, Grid } from "@mui/material";
 
 // Custom components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -21,7 +20,7 @@ import ConfirmationModal from "examples/modal/Confirmation/Confirmation";
 import pxToRem from "assets/theme/functions/pxToRem";
 
 // Table Data
-import RoleData from "layouts/wfmwizard/System/data/RoleData";
+import PalletData from "layouts/rackAndPalletManagement/data/palletData";
 
 // utils
 import Constants, { Icons, PageTitles, ButtonTitles, Colors, ModalContent } from "utils/Constants";
@@ -31,8 +30,6 @@ import FTextField from "components/Form/FTextField";
 // import CustomRadio from "components/CustomRadio/CustomRadio";
 import Validator from "utils/Validations";
 import { useDispatch } from "react-redux";
-import MDInput from "components/MDInput";
-import MDTypography from "components/MDTypography";
 import { openSnackbar } from "redux/Slice/Notification.slice";
 import createRack, { getPallets, updatePallet, getRacks } from "redux/Thunks/Racks.thunk";
 import { paramCreater } from "utils/methods/methods";
@@ -48,7 +45,7 @@ function roleManagement() {
   const [pallet, setPallet] = useState({
     list: [],
     editId: "",
-    body: { rackName: "", description: "", allProject: "true", accessType: "both" },
+    body: { rack: "", palletRow: 0, palletColumn: 0 },
     editBody: {},
     errors: {},
     dataLoading: "pending",
@@ -76,6 +73,7 @@ function roleManagement() {
       selectedValue: "All",
     },
   ]);
+
   const [tablePagination, setTablePagination] = useState({
     page: 0,
     perPage: 20,
@@ -93,10 +91,9 @@ function roleManagement() {
     setPallet({
       ...pallet,
       body: {
-        rackName: body?.title || "",
-        description: body?.description || "",
-        allProject: body?.allProject.toString(),
-        accessType: body?.accessType,
+        rack: body?.title || "",
+        palletRow: body?.palletRow || 0,
+        palletColumn: body?.palletColumn || 0,
       },
       editBody: body,
       editId,
@@ -119,7 +116,7 @@ function roleManagement() {
     });
     setPallet({
       ...pallet,
-      body: { rackName: "", description: "", allProject: "true", accessType: "both" },
+      body: { rack: "", palletRow: 0, palletColumn: 0 },
       editBody: {},
       editId: "",
       errors: {},
@@ -135,7 +132,7 @@ function roleManagement() {
     });
   };
 
-  const { columns, rows } = RoleData(handleOpen, pallet.list, handleConfirmationModalOpen);
+  const { columns, rows } = PalletData(handleOpen, pallet.list, handleConfirmationModalOpen);
 
   const handleFilter = async (filterValue = filters) => {
     setTablePagination({ ...tablePagination, page: 0 });
@@ -152,7 +149,7 @@ function roleManagement() {
       setPallet({
         ...pallet,
         list: res?.payload?.data?.data,
-        body: { rackName: "", description: "", allProject: "true", accessType: "both" },
+        body: { rack: "", palletRow: 0, palletColumn: 0 },
         editBody: {},
         errors: {},
         dataLoading: "fullfilled",
@@ -220,22 +217,25 @@ function roleManagement() {
   };
 
   const validateForm = () => {
-    const { rackName, allProject, accessType } = pallet.body;
+    const { rack, palletRow, palletColumn } = pallet.body;
     const errors = {};
 
-    const roleNameError = Validator.validate("basic", rackName);
-    const allProjectError = Validator.validate("basic", allProject);
-    const accessTypeError = Validator.validate("basic", accessType);
-    if (roleNameError !== "") {
-      errors.rackName = roleNameError;
+    const rackError = Validator.validate("basic", rack);
+    const palletRowError = Validator.validate("number", palletRow);
+    const palletColumnError = Validator.validate("number", palletColumn);
+    console.log("rackError", rackError);
+    console.log("palletRowError", palletRowError);
+    console.log("palletColumnError", palletColumnError);
+    if (rackError !== "") {
+      errors.rack = rackError;
     }
 
-    if (allProjectError !== "") {
-      errors.allProject = allProjectError;
+    if (palletRowError !== "") {
+      errors.allProject = palletRowError;
     }
 
-    if (accessTypeError !== "") {
-      errors.accessType = accessTypeError;
+    if (palletColumnError !== "") {
+      errors.palletColumn = palletColumnError;
     }
 
     setPallet({
@@ -247,20 +247,22 @@ function roleManagement() {
   };
 
   const handleCreateRole = async () => {
+    console.log("pallet", pallet);
     const isValid = validateForm();
+    console.log("isValid", isValid);
     if (!isValid) return;
     setModal({
       ...modal,
       loading: true,
     });
     const body = {
-      title: pallet.body.rackName,
-      description: pallet.body.description,
-      allProject: pallet.body.allProject,
-      accessType: pallet.body.accessType,
+      rack: pallet.body.rack,
+      palletRow: pallet.body.palletRow,
+      palletColumn: pallet.body.palletColumn,
     };
     const res = await dispatch(createRack(body));
-    if (res.payload.status === 200) {
+    console.log(res);
+    if (res.payload.status === 201) {
       handleClose();
       handleFilter();
       await dispatch(
@@ -278,7 +280,7 @@ function roleManagement() {
       setPallet({
         ...pallet,
         errors: {
-          rackName: err,
+          rack: err,
         },
       });
     } else {
@@ -303,15 +305,12 @@ function roleManagement() {
       loading: true,
     });
     const body = {
-      ...(pallet.editBody?.title !== pallet.body.rackName && { title: pallet.body.rackName }),
-      ...(pallet.editBody?.description !== pallet.body.description && {
-        description: pallet.body.description,
+      ...(pallet.editBody?.title !== pallet.body.rack && { title: pallet.body.rack }),
+      ...(pallet.editBody?.palletRow !== pallet.body.palletRow && {
+        palletRow: pallet.body.palletRow,
       }),
-      ...(pallet.editBody?.allProject.toString() !== pallet.body.allProject && {
-        allProject: pallet.body.allProject,
-      }),
-      ...(pallet.editBody?.accessType !== pallet.body.accessType && {
-        accessType: pallet.body.accessType,
+      ...(pallet.editBody?.palletColumn !== pallet.body.palletColumn && {
+        palletColumn: pallet.body.palletColumn,
       }),
     };
 
@@ -334,7 +333,7 @@ function roleManagement() {
       setPallet({
         ...pallet,
         errors: {
-          rackName: err,
+          rack: err,
         },
       });
       await dispatch(
@@ -390,6 +389,7 @@ function roleManagement() {
     }));
     handleFilter();
   };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -529,7 +529,7 @@ function roleManagement() {
       </BasicModal>
 
       {/* Create a Pallet */}
-      <BasicModal
+      {/* <BasicModal
         open={modal.open}
         handleClose={handleClose}
         title={modal.title}
@@ -541,7 +541,6 @@ function roleManagement() {
         }
         handleAction={modal.type === "new" ? handleCreateRole : handleUpdateRole}
       >
-        {/* Role Name */}
         <MDBox sx={{ mt: pxToRem(8), display: "flex", flexDirection: "column" }}>
           <MDTypography
             variant="body"
@@ -552,8 +551,8 @@ function roleManagement() {
           <Autocomplete
             options={[]}
             freeSolo
-            name="rackName"
-            id="rackName"
+            name="rack"
+            id="rack"
             variant="standard"
             sx={{
               mt: 1,
@@ -562,16 +561,16 @@ function roleManagement() {
               },
             }}
             popupIcon={<KeyboardArrowDownIcon fontSize="medium" sx={{ color: "#667085" }} />}
-            onChange={(e, value) => handleChange({ target: { name: "rackName", value } })}
-            value={pallet.body.rackName}
+            onChange={(e, value) => handleChange({ target: { name: "rack", value } })}
+            value={pallet.body.rack}
             renderInput={(params) => (
               <MDInput
                 {...params}
-                name="rackName"
+                name="rack"
                 onChange={(e) => handleChange(e)}
                 placeholder="Enter Rack Name"
-                error={Boolean(pallet.errors?.rackName)}
-                helperText={pallet.errors?.rackName}
+                error={Boolean(pallet.errors?.rack)}
+                helperText={pallet.errors?.rack}
                 FormHelperTextProps={{
                   sx: { marginLeft: 0, color: "red" },
                 }}
@@ -621,7 +620,7 @@ function roleManagement() {
             value={pallet.body.palletColumn}
           />
         </MDBox>
-      </BasicModal>
+      </BasicModal> */}
 
       {/* Confirmation modal for Activate and deactivate pallet. */}
       <ConfirmationModal
