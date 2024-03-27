@@ -14,6 +14,8 @@ const TextMessage = {
   MONGOOSE_ID: "_id",
   NO_DATA_FOUND: "No data found",
   SOMETHING_WENT_WRONG: "Something went wrong",
+  USER_LOGOUT_TITTLE: "Logout",
+  LOGOUT_MESSAGE: "Are you sure you want to logout?",
 
   // Redux Constants
   NOTIFICATION_SUCCESS: "success",
@@ -60,6 +62,8 @@ export const ButtonTitles = {
   // Rack & Pallet Management
   NEW_RACK: "Rack",
   NEW_PALLET: "Pallet",
+  NEGATIVE_BUTTON: "No",
+  POSITIVE_BUTTON: "Yes",
 };
 
 // Card Titles
