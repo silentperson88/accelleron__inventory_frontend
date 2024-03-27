@@ -8,7 +8,7 @@ import Author from "components/Table/Author";
 import Constants, { Icons, ModalContent } from "utils/Constants";
 import Status from "components/Table/Status";
 
-export default function RoleData(handleOpenEdit, roleList, handleConfirmationModalOpen) {
+export default function palletData(handleOpenEdit, roleList, handleConfirmationModalOpen) {
   const [rows, setRows] = useState([]);
 
   const ActiveRole = ({ data }) => (
@@ -59,7 +59,7 @@ export default function RoleData(handleOpenEdit, roleList, handleConfirmationMod
       { Header: "No.", accessor: "srNo", width: "3%", align: "center" },
       { Header: "Rack", accessor: "rack", align: "left" },
       {
-        Header: "Pallet Name",
+        Header: "Pallet",
         accessor: "palletName",
         width: "40%",
         align: "left",

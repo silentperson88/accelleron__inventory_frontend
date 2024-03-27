@@ -13,7 +13,7 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/authentication-background.jpg";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import ForgetPassword from "redux/Thunks/Authentication";
+import ForgetPassword from "redux/Thunks/Authentication.thunks";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 // Contants
@@ -26,7 +26,7 @@ import Validations from "utils/Validations/index";
 import MDInput from "components/MDInput";
 
 // Logo
-import logo from "assets/images/brand.png";
+import logo from "assets/images/logo.svg";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -172,7 +172,7 @@ function ForgotPassword() {
                       sx={{ color: "#8C8C99", fontSize: pxToRem(12), fontWeight: 400 }}
                       fontWeight="light"
                     >
-                      ©2023 Finvibes. All rights reserved.
+                      ©2024 Accelleron. All rights reserved.
                     </MDTypography>
                   </MDBox>
                 </MDBox>

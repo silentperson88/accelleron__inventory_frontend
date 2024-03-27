@@ -1,75 +1,77 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
+
+// Material Components
 import { Box } from "@mui/material";
-import MDBox from "components/MDBox";
+
+// Material Common Components
+import pxToRem from "assets/theme/functions/pxToRem";
 import MDTypography from "components/MDTypography";
-import { Colors, Icons } from "utils/Constants";
+import MDBox from "components/MDBox";
+
+// Utils
+import Constants, { Colors, Icons } from "utils/Constants";
+
+const titleDimensions = {
+  [Constants.DAMAGED]: { bgColor: Colors.LIGHT_RED, color: Colors.DARK_RED, width: "70px" },
+  [Constants.IN_USE]: {
+    bgColor: Colors.LIGHT_ORANGE,
+    color: Colors.DARK_ORANGE,
+    width: pxToRem(105),
+  },
+  [Constants.IN_REPAIR]: {
+    bgColor: Colors.LIGHT_YELLOW,
+    color: Colors.DARK_YELLOW,
+    width: pxToRem(130),
+  },
+  [Constants.AVAILABLE]: { bgColor: Colors.LIGHT_GREEN, color: Colors.DARK_GREEN, width: "100px" },
+};
 
 const Status = ({ title }) => {
-  let icon;
+  const { bgColor, color, width } = titleDimensions[title] || {};
 
-  if (title === "open") {
-    icon = Icons.CROSS3;
-  } else if (title === "submitted") {
-    icon = Icons.DASH;
-  } else if (title === "closed") {
-    icon = Icons.ACCEPT;
-  } else {
-    icon = (
-      <Box
-        component="span"
-        backgroundColor={
-          (title === "open" && "#9D0202") ||
-          (title === "submitted" && "#ff6600") ||
-          (title === "in discussion" && "#B68300") ||
-          (title === "closed" && "#2A8C00") ||
-          (title === "approved" && "#2A8C00") ||
-          (title === "pending" && "#B68300") ||
-          (title === "rejected" && "#9D0202")
-        }
-        sx={{
-          borderRadius: "50%",
-          width: "10px",
-          height: "10px",
-        }}
-      />
-    );
+  let icon;
+  switch (title) {
+    case Constants.STATUS_REJECTED:
+    case Constants.OPEN:
+      icon = Icons.CROSS3;
+      break;
+    case Constants.STATUS_PENDING:
+      icon = Icons.WARNING;
+      break;
+    case Constants.SUBMITTED:
+      icon = Icons.DASH;
+      break;
+    case Constants.CLOSED:
+    case Constants.APPROVED:
+    case Constants.CHECK_IN:
+      icon = Icons.ACCEPT;
+      break;
+    default:
+      icon = (
+        <Box
+          component="span"
+          backgroundColor={color}
+          sx={{
+            borderRadius: "50%",
+            width: pxToRem(10),
+            height: pxToRem(10),
+          }}
+        />
+      );
+      break;
   }
 
   return (
     <MDBox
-      bgColor={
-        (title === "open" && "rgba(157, 2, 2, 0.1)") ||
-        (title === "submitted" && "#ffefe5") ||
-        (title === "in discussion" && "#f7f2e5") ||
-        (title === "closed" && "rgba(42, 140, 0, 0.1)") ||
-        (title === "approved" && "#DCF5E9") ||
-        (title === "pending" && "#faf1e5") ||
-        (title === "rejected" && "#FEE4E2")
-      }
-      color={
-        (title === "open" && "#9D0202") ||
-        (title === "submitted" && "#ff6600") ||
-        (title === "in discussion" && "#B68300") ||
-        (title === "closed" && "#2A8C00") ||
-        (title === "approved" && "#029E3B") ||
-        (title === "pending" && "#EB8D00") ||
-        (title === "rejected" && "#BD382F")
-      }
+      bgColor={bgColor}
+      color={color}
       variant="contained"
-      borderRadius="16px"
+      borderRadius={pxToRem(16)}
       opacity={1}
       p={1}
-      width={
-        (title === "open" && "70px") ||
-        (title === "submitted" && "105px") ||
-        (title === "in discussion" && "130px") ||
-        (title === "closed" && "80px") ||
-        title === "approved" ||
-        title === "pending" ||
-        (title === "rejected" && "100px")
-      }
-      height="24px"
+      width={width}
+      height={pxToRem(24)}
       textAlign="right"
       display="flex"
       alignItems="center"
@@ -77,8 +79,8 @@ const Status = ({ title }) => {
     >
       <Box
         sx={{
-          width: "10px",
-          height: "10px",
+          width: pxToRem(10),
+          height: pxToRem(10),
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -91,11 +93,7 @@ const Status = ({ title }) => {
         variant="caption"
         sx={{
           textTransform: "capitalize",
-          color:
-            (title === "open" && Colors.DARK_RED) ||
-            (title === "submitted" && Colors.DARK_ORANGE) ||
-            (title === "in discussion" && Colors.DARK_YELLOW) ||
-            (title === "closed" && Colors.DARK_GREEN),
+          color,
         }}
       >
         {title}

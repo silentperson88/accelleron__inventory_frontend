@@ -19,11 +19,11 @@ import pxToRem from "assets/theme/functions/pxToRem";
 import { useEffect, useState } from "react";
 
 // Logo
-import logo from "assets/images/brand.png";
+import logo from "assets/images/logo.svg";
 
 import Constants, { Colors } from "utils/Constants";
 import { useDispatch } from "react-redux";
-import { ResetPasswordThunk, checkResetTokenThunk } from "redux/Thunks/Authentication";
+import { ResetPasswordThunk, checkResetTokenThunk } from "redux/Thunks/Authentication.thunks";
 import { Link, useParams } from "react-router-dom";
 import Validations from "utils/Validations/index";
 import MDInput from "components/MDInput";
@@ -261,7 +261,7 @@ function ResetPassword() {
                           sx={{ color: "text", fontSize: pxToRem(12), fontWeight: 400 }}
                           fontWeight="light"
                         >
-                          ©2023 Finvibes. All rights reserved.
+                          ©2024 Accelleron. All rights reserved.
                         </MDTypography>
                       </MDBox>
                     </MDBox>

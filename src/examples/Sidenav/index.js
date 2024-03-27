@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -32,15 +32,23 @@ import {
   setTransparentSidenav,
   setWhiteSidenav,
 } from "context";
+import Confirmation from "examples/modal/Confirmation/Confirmation";
 import IconButton from "@mui/material/IconButton";
 import pxToRem from "assets/theme/functions/pxToRem";
+// import { logoutThunk } from "redux/Thunks/Authentication.thunks";
+import Sessions from "utils/Sessions";
+// import { useDispatch } from "react-redux";
+import Constants from "utils/Constants";
 
 function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
+  const [openLogout, setOpenLogout] = useState(false);
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, transparentNavbar, light } =
     controller;
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
+  const navigate = useNavigate();
+  // const dispatchThunk = useDispatch();
 
   const iconsStyle = ({ palette: { white, text }, functions: { rgba } }) => ({
     color: () => {
@@ -182,6 +190,19 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
     }
   );
 
+  const handleLogout = async () => {
+    // const res = await dispatchThunk(logoutThunk());
+
+    // if (res.error === undefined) {
+    Sessions.setClear();
+    navigate("/authentication/sign-in");
+    // }
+  };
+
+  const handleOpenLogout = () => {
+    setOpenLogout(true);
+  };
+
   return (
     <SidenavRoot
       {...rest}
@@ -225,6 +246,19 @@ function Sidenav({ color, brand, brandName, routes, role, ...rest }) {
             {miniSidenav ? "keyboard_double_arrow_right" : "keyboard_double_arrow_left"}
           </Icon>
         </IconButton>
+        <MDBox onClick={handleOpenLogout}>
+          <SidenavCollapse name="Logout" icon="power_settings_new" parent="" />
+        </MDBox>
+        {/* Logout confirmation modal for user logging out */}
+        {openLogout && (
+          <Confirmation
+            open={openLogout}
+            title={Constants.USER_LOGOUT_TITTLE}
+            message={Constants.LOGOUT_MESSAGE}
+            handleClose={() => setOpenLogout(false)}
+            handleAction={handleLogout}
+          />
+        )}
       </MDBox>
     </SidenavRoot>
   );

@@ -27,7 +27,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 // Validations Rules
 import Validations from "utils/Validations/index";
-import { loginThunk } from "redux/Thunks/Authentication";
+import { loginThunk } from "redux/Thunks/Authentication.thunks";
 
 // Sessions
 import Sessions from "utils/Sessions";
@@ -35,7 +35,7 @@ import jwtDecode from "jwt-decode";
 import { defaultData, Colors } from "utils/Constants";
 
 // Logo
-import logo from "assets/images/brand.png";
+import logo from "assets/images/logo.svg";
 
 function Basic() {
   const dispatch = useDispatch();
@@ -63,6 +63,8 @@ function Basic() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    navigate("/inventory");
 
     setLoading(true);
     const val = handleValidation();
@@ -254,7 +256,7 @@ function Basic() {
                     sx={{ color: "#8C8C99", fontSize: pxToRem(12), fontWeight: 400 }}
                     fontWeight="light"
                   >
-                    ©2023 Finvibes. All rights reserved.
+                    ©2024 Accelleron. All rights reserved.
                   </MDTypography>
                 </MDBox>
               </MDBox>
