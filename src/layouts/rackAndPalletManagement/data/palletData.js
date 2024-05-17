@@ -13,6 +13,7 @@ export default function palletData(handleOpenEdit, roleList, handleConfirmationM
 
   const ActiveRole = ({ data }) => (
     <Switch
+      disabled
       checked={data?.isActive}
       onChange={(e) => handleConfirmationModalOpen(data?.[Constants.MONGOOSE_ID], e.target.checked)}
     />
@@ -71,7 +72,7 @@ export default function palletData(handleOpenEdit, roleList, handleConfirmationM
         align: "center",
       },
       { Header: "Is Active", accessor: "isActive", width: "11%", align: "center" },
-      { Header: "Action", accessor: "action", width: "6%", align: "center" },
+      // { Header: "Action", accessor: "action", width: "6%", align: "center" },
     ],
     rows,
   };
