@@ -267,7 +267,7 @@ function roleManagement() {
       handleFilter();
       await dispatch(
         openSnackbar({
-          message: Constants.ROLE_CREATED_SUCCESSFULLY,
+          message: Constants.RACK_CREATED_SUCCESSFULLY,
           notificationType: Constants.NOTIFICATION_SUCCESS,
         })
       );
@@ -320,7 +320,7 @@ function roleManagement() {
       handleFilter();
       await dispatch(
         openSnackbar({
-          message: Constants.ROLE_UPDATED_SUCCESSFULLY,
+          message: Constants.RACK_UPDATED_SUCCESSFULLY,
           notificationType: Constants.NOTIFICATION_SUCCESS,
         })
       );
@@ -367,7 +367,7 @@ function roleManagement() {
       handleFilter();
       await dispatch(
         openSnackbar({
-          message: Constants.ROLE_UPDATED_SUCCESSFULLY,
+          message: Constants.RACK_UPDATED_SUCCESSFULLY,
           notificationType: Constants.NOTIFICATION_SUCCESS,
         })
       );

@@ -48,6 +48,18 @@ function Uploader() {
 
   const { columns, rows } = InventoryData(inventoryData);
 
+  const handleFilter = async (filterValue = filters) => {
+    setTablePagination({ ...tablePagination, page: 0 });
+    setNext(0);
+    const paramData = {
+      page: 0,
+      perPage: tablePagination.perPage,
+      ...(filterValue[0].selectedValue !== "All" && { search: filterValue[0].selectedValue }),
+    };
+
+    await dispatch(getInventory(paramCreater(paramData)));
+  };
+
   const onSubmitHandle = async (e) => {
     try {
       const file = e.target.files[0];
@@ -64,24 +76,13 @@ function Uploader() {
             notificationType: Constants.NOTIFICATION_SUCCESS,
           })
         );
+        handleFilter();
       }
     } catch (error) {
       console.error("Error:", error);
       // Handle error
     }
     inputFileRef.current.value = ""; // Reset the file input
-  };
-
-  const handleFilter = async (filterValue = filters) => {
-    setTablePagination({ ...tablePagination, page: 0 });
-    setNext(0);
-    const paramData = {
-      page: 0,
-      perPage: tablePagination.perPage,
-      ...(filterValue[0].selectedValue !== "All" && { search: filterValue[0].selectedValue }),
-    };
-
-    await dispatch(getInventory(paramCreater(paramData)));
   };
 
   useEffect(() => {
