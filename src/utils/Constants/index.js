@@ -14,6 +14,18 @@ const TextMessage = {
   MONGOOSE_ID: "_id",
   NO_DATA_FOUND: "No data found",
   SOMETHING_WENT_WRONG: "Something went wrong",
+
+  // Authentication
+  PASSWORD_FIELD_REQUIRED: "Password field is required",
+  PASSWORD_LENGTH_VALIDATION: "Password length should be between 8 and 16",
+  PASSWORD_SYMBOL_VALIDATION: "Password should have at least one symbol",
+  PASSWORD_DIGIT_VALIDATION: "Password should have at least one digit",
+  PASSWORD_LOWERCASE_VALIDATION: "Password should have at least one lowercase letter",
+  PASSWORD_UPPERCASE_VALIDATION: "Password should have at least one uppercase letter",
+  EMAIL_NOT_VALID: "Email not valid",
+  INVALID_SPACE: "Invalid space",
+  INVALID_EMAIL: "Invalid Email",
+  INVALID_PASSWORD: "Invalid Password",
   USER_LOGOUT_TITTLE: "Logout",
   LOGOUT_MESSAGE: "Are you sure you want to logout?",
 
@@ -138,7 +150,7 @@ export const defaultData = {
   REACTDATETIMEPICKER_24_HOURS_FORMAT: "dd-MM-yyyy HH:mm:ss",
   UNAUTHORIZED_ROLE: "unauthorized",
   ADMIN_ROLE: "admin",
-  SUPER_ADMIN_ROLE: "superadmin",
+  USER_ROLE: "user",
   WEB_ACCESSTYPE: "web",
   BOTH_ACCESSTYPE: "both",
   MOBILE_ACCESSTYPE: "mobile",

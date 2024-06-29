@@ -31,8 +31,7 @@ import { loginThunk } from "redux/Thunks/Authentication.thunks";
 
 // Sessions
 import Sessions from "utils/Sessions";
-import jwtDecode from "jwt-decode";
-import { defaultData, Colors } from "utils/Constants";
+import { Colors } from "utils/Constants";
 
 // Logo
 import logo from "assets/images/logo.svg";
@@ -64,12 +63,10 @@ function Basic() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    navigate("/inventory");
-
     setLoading(true);
     const val = handleValidation();
     if (val) {
-      const body = { email, password, isMobile: false };
+      const body = { email, password };
 
       const res = await dispatch(loginThunk(body));
       setLoading(false);
@@ -84,10 +81,7 @@ function Basic() {
           Sessions.setUserToken(res.payload.data.data.token);
           Sessions.setUserEmail(email);
         }
-        const deocdedToken = jwtDecode(res.payload.data.data.token);
-        navigate(
-          deocdedToken.role === defaultData.SUPER_ADMIN_ROLE ? "admin/home" : "client/setting"
-        );
+        navigate("/inventory");
       }
     }
     setLoading(false);

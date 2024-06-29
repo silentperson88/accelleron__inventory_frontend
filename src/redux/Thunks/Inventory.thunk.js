@@ -1,14 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import ApiService from "redux/ApiService/ApiService";
+import Sessions from "utils/Sessions";
 
 const uploadInventoryFromExcel = createAsyncThunk("upload-invenotory", async (file) => {
   const formData = new FormData();
   formData.append("uploadfile", file);
 
-  console.log("formData", formData);
   const res = await ApiService.post(`inventory/fromexcel`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${Sessions.userToken}`,
     },
   })
     .then((r) => r)
@@ -17,7 +18,11 @@ const uploadInventoryFromExcel = createAsyncThunk("upload-invenotory", async (fi
 });
 
 export const getInventory = createAsyncThunk("get-inventory", async (param) => {
-  const res = await ApiService.get(`inventory?${param}`)
+  const res = await ApiService.get(`inventory?${param}`, {
+    headers: {
+      Authorization: `Bearer ${Sessions.userToken}`,
+    },
+  })
     .then((r) => r)
     .catch((err) => err.response);
 
