@@ -7,11 +7,13 @@ import ForgotPassword from "layouts/authentication/forgot-password";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
-const routes = [
+export const authenticationRoute = [
   {
     type: "page",
     name: "Sign In",
     key: "sign-in",
+    license: [],
+    permissions: [],
     icon: <Icon fontSize="small">SignIn</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
@@ -20,6 +22,8 @@ const routes = [
     type: "page",
     name: "Forgot Password",
     key: "forgot-password",
+    license: [],
+    permissions: [],
     icon: <Icon fontSize="small">Forgot Password</Icon>,
     route: "/authentication/forgot-password",
     component: <ForgotPassword />,
@@ -28,10 +32,15 @@ const routes = [
     type: "page",
     name: "Reset Password",
     key: "reset-password",
+    license: [],
+    permissions: [],
     icon: <Icon fontSize="small">Reset Password</Icon>,
     route: "/authentication/reset-password/:id/:token",
     component: <ResetPassword />,
   },
+];
+
+const userRoutes = [
   {
     type: "collapse",
     name: "Inventory",
@@ -56,4 +65,4 @@ const routes = [
   },
 ];
 
-export default routes;
+export default userRoutes;

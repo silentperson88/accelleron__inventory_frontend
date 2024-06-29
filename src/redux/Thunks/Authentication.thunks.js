@@ -3,10 +3,10 @@ import Sessions from "utils/Sessions";
 import ApiService from "redux/ApiService/ApiService";
 
 export const loginThunk = createAsyncThunk("login/api", async (body) => {
-  const res = await ApiService.post("auths/login", {
+  const res = await ApiService.post("user/login", {
     ...body,
   })
-    .then((r) => r.data)
+    .then((r) => r)
     .catch((err) => err.response);
   return res;
 });
